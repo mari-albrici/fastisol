@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { company } from '../../data/company'
 import { navigationItems } from '../../data/navigation'
 import { ButtonLink } from '../ui/ButtonLink'
+import { BrandLogo } from '../ui/BrandLogo'
 import { Icon } from '../ui/Icon'
 
 export function Header() {
@@ -35,7 +36,7 @@ export function Header() {
       <div className="site-header__main">
         <div className="container site-header__inner">
           <Link className="brand" to="/" aria-label="Fastisol, torna alla home" onClick={() => setIsMenuOpen(false)}>
-            <img src="/images/fastisol-logo-bianco.png" alt="Fastisol" width="300" height="80" />
+            <BrandLogo variant="onDark" />
           </Link>
 
           <nav className="desktop-nav" aria-label="Navigazione principale">

@@ -5,6 +5,7 @@ interface ImportMetaEnv {
   readonly VITE_GA_MEASUREMENT_ID?: string
   readonly VITE_GTM_CONTAINER_ID?: string
   readonly VITE_META_PIXEL_ID?: string
+  readonly VITE_CONTACT_FORM_ENDPOINT?: string
 }
 
 interface ImportMeta {

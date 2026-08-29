@@ -7,16 +7,17 @@ export interface TechnicalSpecification {
 }
 
 export const technology = {
-  name: 'ICYNENE / Huntsman open-cell spray foam',
+  name: 'ICYNENE H2Foam Lite / Huntsman a celle aperte',
   plainLanguageDescription:
     'Un materiale isolante applicato a spruzzo che si espande sul supporto e crea uno strato continuo, adattandosi alla geometria della superficie.',
   manufacturer: 'Huntsman Building Solutions',
   specifications: [
     {
       label: 'Conducibilità termica dichiarata',
-      value: null,
+      value: '0,037',
       unit: 'W/(m·K)',
-      status: 'requires-verification',
+      status: 'verified',
+      source: 'DoP H2Foam Lite V6 n. 0011/09-2020',
     },
     {
       label: 'Densità',
@@ -26,13 +27,15 @@ export const technology = {
     },
     {
       label: 'Reazione al fuoco',
-      value: null,
-      status: 'requires-verification',
+      value: 'Euroclasse E',
+      status: 'verified',
+      source: 'DoP H2Foam Lite V6 n. 0011/09-2020',
     },
     {
       label: 'Permeabilità al vapore',
-      value: null,
-      status: 'requires-verification',
+      value: 'μ 2,2',
+      status: 'verified',
+      source: 'DoP H2Foam Lite V6 n. 0011/09-2020',
     },
   ] satisfies TechnicalSpecification[],
   // TODO: Verify product-specific warranty documentation and conditions.

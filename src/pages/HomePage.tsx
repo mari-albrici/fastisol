@@ -3,7 +3,6 @@ import { FinalCta } from '../components/sections/FinalCta'
 import { HomeHero } from '../components/sections/HomeHero'
 import { ProblemsSection } from '../components/sections/ProblemsSection'
 import { ProcessSection } from '../components/sections/ProcessSection'
-import { ProjectsSection } from '../components/sections/ProjectsSection'
 import { SolutionsSection } from '../components/sections/SolutionsSection'
 import { TechnologySection } from '../components/sections/TechnologySection'
 import { TrustSection } from '../components/sections/TrustSection'
@@ -20,6 +19,8 @@ const homeStructuredData = [
     url: company.websiteUrl,
     telephone: company.phoneDisplay,
     description: company.description,
+    logo: new URL(company.logos.onLight.src, company.websiteUrl).toString(),
+    image: new URL('/images/fastisol-isolamento-tetto-legno-hero.webp', company.websiteUrl).toString(),
     address: {
       '@type': 'PostalAddress',
       streetAddress: company.address.street,
@@ -54,7 +55,6 @@ export function HomePage() {
       <SolutionsSection />
       <TechnologySection />
       <ProcessSection />
-      <ProjectsSection />
       <TrustSection />
       <FaqSection />
       <FinalCta />

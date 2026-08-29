@@ -3,8 +3,6 @@ import type { NavigationItem } from '../types/content'
 export const navigationItems: NavigationItem[] = [
   { label: 'Soluzioni', href: '/soluzioni' },
   { label: 'Tecnologia', href: '/tecnologia' },
-  { label: 'Realizzazioni', href: '/realizzazioni' },
-  { label: 'Guide', href: '/guide' },
   { label: 'Azienda', href: '/azienda' },
   { label: 'Contatti', href: '/contatti' },
 ]

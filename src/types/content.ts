@@ -29,24 +29,6 @@ export interface Service {
   icon: IconName
 }
 
-export interface Project {
-  slug: string
-  title: string
-  location?: string
-  category: 'sottotetti' | 'tetti' | 'residenziale' | 'industriale' | 'condensa'
-  buildingType?: string
-  problem: string
-  solution: string
-  description: string
-  images: Array<{
-    src: string
-    alt: string
-    width: number
-    height: number
-  }>
-  featured: boolean
-}
-
 export interface Faq {
   question: string
   answer: string

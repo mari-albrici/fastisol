@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { company, formattedAddress } from '../../data/company'
 import { footerSolutionLinks, navigationItems } from '../../data/navigation'
 import { ButtonLink } from '../ui/ButtonLink'
+import { BrandLogo } from '../ui/BrandLogo'
 import { Icon } from '../ui/Icon'
 
 export function Footer() {
@@ -21,7 +22,7 @@ export function Footer() {
 
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img src="/images/fastisol-logo-bianco.png" alt="Fastisol" width="300" height="80" />
+          <BrandLogo variant="onDark" />
           <p>{company.description}</p>
           <a className="footer-phone" href={`tel:${company.phoneHref}`}>
             <Icon name="phone" size={19} /> {company.phoneDisplay}
@@ -50,6 +51,8 @@ export function Footer() {
             {formattedAddress}<br />
             {company.serviceArea}
           </address>
+          <a className="footer-email" href={`mailto:${company.email}`}>{company.email}</a>
+          <p className="footer-vat">P. IVA {company.vatNumber}</p>
         </div>
       </div>
 
