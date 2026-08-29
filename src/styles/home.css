@@ -422,6 +422,25 @@
   font-size: 0.72rem;
 }
 
+.testimonial-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.star {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.star--filled {
+  color: #f5b301; 
+}
+
+.star--empty {
+  color: #d9d9d9;
+}
+
 .trust-grid {
   display: grid;
   gap: var(--space-xl);

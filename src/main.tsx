@@ -9,6 +9,7 @@ import './styles/contact.css'
 import './styles/company.css'
 import './styles/technology.css'
 import './styles/solutions.css'
+import './styles/management.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

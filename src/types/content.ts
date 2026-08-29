@@ -38,6 +38,7 @@ export interface Faq {
 export interface Testimonial {
   name: string
   projectType: string
+  stars: number
   quote: string
   verificationStatus: 'published-on-legacy-site' | 'pending'
 }

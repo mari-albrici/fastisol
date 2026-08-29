@@ -6,6 +6,7 @@ export const testimonials: Testimonial[] = [
   {
     name: 'Marco Loregian',
     projectType: 'Sottotetto calpestabile',
+    stars: 5,
     quote:
       'Isolamento della soletta del sottotetto con finitura calpestabile: un lavoro descritto come completo e adatto all’uso dello spazio.',
     verificationStatus: 'published-on-legacy-site',
@@ -13,6 +14,7 @@ export const testimonials: Testimonial[] = [
   {
     name: 'Edoardo Eseni',
     projectType: 'Coibentazione sottotetto',
+    stars: 5,
     quote:
       'Ha segnalato una differenza percepibile di temperatura sia nel periodo invernale sia in quello estivo.',
     verificationStatus: 'published-on-legacy-site',
@@ -20,6 +22,7 @@ export const testimonials: Testimonial[] = [
   {
     name: 'Roberto Congiu',
     projectType: 'Isolamento abitazione',
+    stars: 5,
     quote:
       'Dopo il sopralluogo, due operatori hanno completato l’applicazione nel sottotetto in poche ore.',
     verificationStatus: 'published-on-legacy-site',

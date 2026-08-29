@@ -1,6 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { SiteLayout } from './components/layout/SiteLayout'
+import { ManagementAuthProvider } from './management/AuthContext'
+import { ManagementGuard } from './management/ManagementGuard'
+import { ManagementLayout } from './management/ManagementLayout'
 
 const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })))
 const ContactPage = lazy(() => import('./pages/ContactPage').then((module) => ({ default: module.ContactPage })))
@@ -9,6 +12,12 @@ const TechnologyPage = lazy(() => import('./pages/TechnologyPage').then((module)
 const SolutionsPage = lazy(() => import('./pages/SolutionsPage').then((module) => ({ default: module.SolutionsPage })))
 const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage').then((module) => ({ default: module.PlaceholderPage })))
 const NotFoundPage = lazy(() => import('./pages/PlaceholderPage').then((module) => ({ default: module.NotFoundPage })))
+const ManagementLoginPage = lazy(() => import('./management/ManagementLoginPage').then((module) => ({ default: module.ManagementLoginPage })))
+const ManagementDashboardPage = lazy(() => import('./management/ManagementDashboardPage').then((module) => ({ default: module.ManagementDashboardPage })))
+const ManagementClientsPage = lazy(() => import('./management/ManagementClientsPage').then((module) => ({ default: module.ManagementClientsPage })))
+const ManagementJobsPage = lazy(() => import('./management/ManagementJobsPage').then((module) => ({ default: module.ManagementJobsPage })))
+const ManagementDocumentsPage = lazy(() => import('./management/ManagementDocumentsPage').then((module) => ({ default: module.ManagementDocumentsPage })))
+const ManagementDocumentEditorPage = lazy(() => import('./management/ManagementDocumentEditorPage').then((module) => ({ default: module.ManagementDocumentEditorPage })))
 
 const placeholderRoutes = [
   { path: '/soluzioni/isolamento-sottotetto', title: 'Isolamento del sottotetto', eyebrow: 'Soluzioni residenziali', description: 'Come isolare la parte alta dell’abitazione intervenendo sulla soletta o sulle falde, in base all’uso del sottotetto.' },
@@ -33,20 +42,33 @@ const placeholderRoutes = [
 
 export default function App() {
   return (
-    <Suspense fallback={<div className="route-loader" aria-label="Caricamento pagina" />}>
-      <Routes>
-        <Route element={<SiteLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/contatti" element={<ContactPage />} />
-          <Route path="/azienda" element={<CompanyPage />} />
-          <Route path="/tecnologia" element={<TechnologyPage />} />
-          <Route path="/soluzioni" element={<SolutionsPage />} />
-          {placeholderRoutes.map((route) => (
-            <Route key={route.path} path={route.path} element={<PlaceholderPage title={route.title} eyebrow={route.eyebrow} description={route.description} />} />
-          ))}
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <ManagementAuthProvider>
+      <Suspense fallback={<div className="route-loader" aria-label="Caricamento pagina" />}>
+        <Routes>
+          <Route path="/gestionale/login" element={<ManagementLoginPage />} />
+          <Route element={<ManagementGuard />}>
+            <Route path="/gestionale" element={<ManagementLayout />}>
+              <Route index element={<ManagementDashboardPage />} />
+              <Route path="clienti" element={<ManagementClientsPage />} />
+              <Route path="lavori" element={<ManagementJobsPage />} />
+              <Route path="documenti" element={<ManagementDocumentsPage />} />
+              <Route path="documenti/nuovo" element={<ManagementDocumentEditorPage />} />
+              <Route path="documenti/:documentId" element={<ManagementDocumentEditorPage />} />
+            </Route>
+          </Route>
+          <Route element={<SiteLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/contatti" element={<ContactPage />} />
+            <Route path="/azienda" element={<CompanyPage />} />
+            <Route path="/tecnologia" element={<TechnologyPage />} />
+            <Route path="/soluzioni" element={<SolutionsPage />} />
+            {placeholderRoutes.map((route) => (
+              <Route key={route.path} path={route.path} element={<PlaceholderPage title={route.title} eyebrow={route.eyebrow} description={route.description} />} />
+            ))}
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </ManagementAuthProvider>
   )
 }
