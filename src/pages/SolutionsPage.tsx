@@ -84,7 +84,7 @@ const evaluationSteps = [
 
 export function SolutionsPage() {
   return (
-    <main className="solutions-page">
+    <div className="solutions-page">
       <Seo
         title="Isolamento tetto e sottotetto: soluzioni | Fastisol"
         description="Soluzioni per isolare sottotetti, tetti in legno o cemento, pareti e coperture industriali. Scopri dove intervenire e richiedi una valutazione."
@@ -282,6 +282,6 @@ export function SolutionsPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

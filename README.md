@@ -16,7 +16,18 @@ npm run lint
 npm run build
 ```
 
-La cartella `dist` è l'unico artefatto da pubblicare nel web root Host.it configurato. Il file `public/.htaccess` gestisce il fallback delle route React e viene copiato automaticamente in `dist`.
+La cartella `dist` è l'unico artefatto da pubblicare nel web root Host.it configurato. Il file `public/.htaccess` gestisce le pagine prerenderizzate, i 404 e il fallback React riservato al gestionale; viene copiato automaticamente in `dist`.
+
+La build prerenderizza tutte le route pubbliche in file HTML distinti, genera una pagina 404 reale e mantiene un file `gestionale-shell.html` separato per il solo gestionale. Per verificare localmente lo stesso comportamento degli URL puliti e dei codici HTTP:
+
+```bash
+npm run build
+npm run preview:dist
+```
+
+### Analytics e consenso
+
+Il tracciamento pubblico viene caricato soltanto dopo la scelta dell'utente. Sono supportati Google Tag Manager, Google Analytics 4 e Meta Pixel tramite le variabili presenti in `.env.example`. Se è configurato GTM, il contenitore ha precedenza sul caricamento diretto di GA4 e deve gestire i tag Google al proprio interno. Il sito invia eventi per page view SPA, telefono, email, WhatsApp, avvio preventivo, avvio modulo, errori e lead completati. Il gestionale non monta il gestore del consenso né questi eventi pubblici.
 
 ### Deploy su Host.it
 

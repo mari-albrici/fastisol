@@ -4,6 +4,7 @@ import { ScrollToTop } from './ScrollToTop'
 import { Header } from '../navigation/Header'
 import { company } from '../../data/company'
 import { Icon } from '../ui/Icon'
+import { ConsentManager } from './ConsentManager'
 
 export function SiteLayout() {
   return (
@@ -13,6 +14,7 @@ export function SiteLayout() {
       <Header />
       <main id="main-content"><Outlet /></main>
       <Footer />
+      <ConsentManager />
       <div className="mobile-contact-bar" aria-label="Contatti rapidi">
         <a href={`tel:${company.phoneHref}`}><Icon name="phone" size={18} /> Chiama</a>
         <a href={company.whatsappHref}><Icon name="message" size={18} /> WhatsApp</a>

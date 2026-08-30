@@ -60,6 +60,10 @@ jobs:
       - name: Validate production artifact
         run: |
           test -f dist/index.html
+          test -f dist/gestionale-shell.html
+          test -f dist/preventivo.html
+          test -f dist/faq.html
+          test -f dist/404.html
           test -f dist/.htaccess
           test -f dist/robots.txt
           test -f dist/sitemap.xml

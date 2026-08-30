@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { Seo } from '../components/layout/Seo'
 import { ButtonLink } from '../components/ui/ButtonLink'
 import { Icon } from '../components/ui/Icon'
@@ -8,6 +8,7 @@ import {
   submitContactForm,
   type ContactFormPayload,
 } from '../utils/contactForm'
+import { trackEvent } from '../utils/analytics'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error' | 'not-configured'
 
@@ -51,7 +52,14 @@ function getFormValue(formData: FormData, key: string) {
 
 export function ContactPage() {
   const [status, setStatus] = useState<FormStatus>('idle')
+  const formStarted = useRef(false)
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`
+
+  const trackFormStart = () => {
+    if (formStarted.current) return
+    formStarted.current = true
+    trackEvent('form_start', { form_name: 'contact_request' })
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -66,6 +74,7 @@ export function ContactPage() {
 
     if (!contactFormConfig.endpoint) {
       setStatus('not-configured')
+      trackEvent('form_error', { form_name: 'contact_request', error_type: 'not_configured' })
       return
     }
 
@@ -88,8 +97,11 @@ export function ContactPage() {
       await submitContactForm(payload)
       setStatus('success')
       form.reset()
+      formStarted.current = false
+      trackEvent('generate_lead', { form_name: 'contact_request', request_type: payload.requestType })
     } catch {
       setStatus('error')
+      trackEvent('form_error', { form_name: 'contact_request', error_type: 'submission_failed' })
     }
   }
 
@@ -162,7 +174,7 @@ export function ContactPage() {
               <p>I campi contrassegnati con * sono obbligatori.</p>
             </div>
 
-            <form className="contact-form" onSubmit={handleSubmit}>
+            <form className="contact-form" onSubmit={handleSubmit} onFocusCapture={trackFormStart}>
               <div className="form-field form-field--honeypot" aria-hidden="true">
                 <label htmlFor="website">Sito web</label>
                 <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /gestionale
 
 Sitemap: https://fastisol.it/sitemap.xml

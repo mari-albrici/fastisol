@@ -4,6 +4,7 @@ import { footerSolutionLinks, navigationItems } from '../../data/navigation'
 import { ButtonLink } from '../ui/ButtonLink'
 import { BrandLogo } from '../ui/BrandLogo'
 import { Icon } from '../ui/Icon'
+import { isAnalyticsConfigured, openCookieSettings } from '../../utils/analytics'
 
 export function Footer() {
   const { pathname } = useLocation()
@@ -61,6 +62,9 @@ export function Footer() {
         <div>
           <Link to="/privacy-policy">Privacy</Link>
           <Link to="/cookie-policy">Cookie</Link>
+          {isAnalyticsConfigured() && (
+            <button type="button" className="footer-cookie-settings" onClick={openCookieSettings}>Preferenze cookie</button>
+          )}
         </div>
       </div>
     </footer>
