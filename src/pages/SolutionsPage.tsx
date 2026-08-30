@@ -19,7 +19,7 @@ const solutionsStructuredData = [
         '@type': 'ListItem',
         position: index + 1,
         name: solution.title,
-        url: new URL(solution.href, company.websiteUrl).toString(),
+        url: `${company.websiteUrl}/soluzioni#${solution.id}`,
       })),
     },
   },
@@ -139,12 +139,12 @@ export function SolutionsPage() {
               <p className="eyebrow">Abitazioni, imprese e professionisti</p>
               <h2>Soluzioni per tetti, sottotetti e coperture.</h2>
             </div>
-            <p>Scegli la situazione più vicina alla tua. Le pagine di dettaglio aiutano a riconoscere il problema; la conferma arriva con la valutazione tecnica.</p>
+            <p>Scegli la situazione più vicina alla tua. Le schede aiutano a riconoscere il problema; la conferma arriva con la valutazione tecnica.</p>
           </div>
 
           <div className="solutions-catalog__grid">
             {solutionCategories.map((solution, index) => (
-              <Link className="solution-tile" to={solution.href} key={solution.href}>
+              <article className="solution-tile" id={solution.id} key={solution.id}>
                 <div className="solution-tile__top">
                   <span>{(index + 1).toString().padStart(2, '0')}</span>
                   <Icon name={solution.icon} size={28} />
@@ -153,14 +153,14 @@ export function SolutionsPage() {
                 <h3>{solution.shortTitle}</h3>
                 <p>{solution.description}</p>
                 <div className="solution-tile__ideal"><strong>Indicata per</strong><span>{solution.idealFor}</span></div>
-                <span className="solution-tile__link">Approfondisci <Icon name="arrow" size={18} /></span>
-              </Link>
+                <Link className="solution-tile__link" to="/preventivo">Valuta questa soluzione <Icon name="arrow" size={18} /></Link>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section roof-or-attic">
+      <section className="section roof-or-attic" id="tetto-o-sottotetto">
         <div className="container">
           <div className="solutions-section-heading">
             <div>
@@ -182,7 +182,7 @@ export function SolutionsPage() {
                 <li><Icon name="check" size={17} /> Minore volume da mantenere caldo o fresco</li>
                 <li><Icon name="check" size={17} /> Possibilità di prevedere passerelle tecniche</li>
               </ul>
-              <ButtonLink href="/soluzioni/isolamento-sottotetto" variant="text" showArrow>Isolamento sottotetto</ButtonLink>
+              <ButtonLink href="/soluzioni#soluzione-sottotetto-non-abitabile" variant="text" showArrow>Isolamento sottotetto</ButtonLink>
             </article>
 
             <article>
@@ -196,7 +196,7 @@ export function SolutionsPage() {
                 <li><Icon name="check" size={17} /> Continuità lungo la geometria delle falde</li>
                 <li><Icon name="check" size={17} /> Coordinamento con impianti e finiture interne</li>
               </ul>
-              <ButtonLink href="/soluzioni/isolamento-tetto" variant="text" showArrow>Isolamento tetto</ButtonLink>
+              <ButtonLink href="/soluzioni#soluzione-tetto-in-legno" variant="text" showArrow>Isolamento tetto</ButtonLink>
             </article>
           </div>
         </div>

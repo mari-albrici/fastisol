@@ -205,7 +205,7 @@ export function QuotePage() {
 
                 <div className="form-field"><label htmlFor="quote-details">Problema e obiettivo *</label><textarea id="quote-details" name="details" rows={6} placeholder="Descrivi caldo, freddo, condensa, uso del sottotetto e ogni informazione utile." required /></div>
 
-                <label className="form-consent"><input name="privacyConsent" type="checkbox" required /><span>Ho letto la <a href="/privacy-policy">Privacy Policy</a> e acconsento al trattamento dei dati per ricevere risposta alla richiesta. *</span></label>
+                <label className="form-consent"><input name="privacyConsent" type="checkbox" required /><span>Dichiaro di aver letto la <a href="/privacy-policy">Privacy Policy</a> sul trattamento dei dati necessario per rispondere alla richiesta. *</span></label>
 
                 <div className="contact-form__footer">
                   <button className="button button--primary" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Invio in corso…' : 'Invia la richiesta'}{status !== 'submitting' && <Icon name="arrow" size={19} />}</button>

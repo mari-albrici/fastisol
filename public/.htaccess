@@ -3,6 +3,11 @@
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
 
+  # Gli approfondimenti non ancora pubblicati confluiscono temporaneamente
+  # nelle due pagine complete, senza esporre pagine segnaposto.
+  RewriteRule ^soluzioni/(?:isolamento-sottotetto|sottotetto-non-abitabile|sottotetto-calpestabile|isolamento-tetto|tetto-in-legno|tetto-in-cemento|muricci-e-tavelloni|isolamento-interno|edifici-industriali|condensa)/?$ /soluzioni [R=302,L]
+  RewriteRule ^tecnologia/(?:icynene|come-funziona|dati-tecnici|certificazioni)/?$ /tecnologia [R=302,L]
+
   # Le pagine pubbliche prerenderizzate sono salvate come file .html,
   # ma restano raggiungibili con URL puliti senza estensione.
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
@@ -24,6 +29,11 @@ ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   Header always set X-Robots-Tag "noindex, nofollow, noarchive" env=fastisol_noindex
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), payment=(), usb=()"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
 
   <FilesMatch "\.(css|js)$">
     Header set Cache-Control "public, max-age=31536000, immutable"

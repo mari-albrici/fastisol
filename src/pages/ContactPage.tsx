@@ -238,7 +238,7 @@ export function ContactPage() {
 
               <label className="form-consent">
                 <input name="privacyConsent" type="checkbox" required />
-                <span>Ho letto la <a href="/privacy-policy">Privacy Policy</a> e acconsento al trattamento dei dati per ricevere risposta alla richiesta. *</span>
+                <span>Dichiaro di aver letto la <a href="/privacy-policy">Privacy Policy</a> sul trattamento dei dati necessario per rispondere alla richiesta. *</span>
               </label>
 
               <div className="contact-form__footer">

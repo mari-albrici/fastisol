@@ -213,6 +213,11 @@
   padding: clamp(1.5rem, 3vw, 2.4rem);
   background: var(--color-white);
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  scroll-margin-top: 130px;
+}
+
+.roof-or-attic {
+  scroll-margin-top: 130px;
 }
 
 .solution-tile:hover {

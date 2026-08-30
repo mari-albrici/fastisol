@@ -8,7 +8,7 @@ export const services: Service[] = [
     description:
       'Creiamo uno strato isolante continuo sulla soletta o sulle falde, anche quando lo spazio è basso o irregolare.',
     problem: 'La casa si surriscalda d’estate e disperde calore dal piano più alto.',
-    href: '/soluzioni/isolamento-sottotetto',
+    href: '/soluzioni#soluzione-sottotetto-non-abitabile',
     icon: 'home',
   },
   {
@@ -18,7 +18,7 @@ export const services: Service[] = [
     description:
       'Valutiamo la struttura esistente e applichiamo l’isolante dal lato più adatto, limitando le lavorazioni invasive quando possibile.',
     problem: 'Il tetto non isola a sufficienza, ma aprire la copertura sarebbe complesso.',
-    href: '/soluzioni/isolamento-tetto',
+    href: '/soluzioni#tetto-o-sottotetto',
     icon: 'layers',
   },
   {
@@ -28,7 +28,7 @@ export const services: Service[] = [
     description:
       'Interveniamo su capannoni e grandi coperture con un’applicazione progettata sulle condizioni reali dell’edificio.',
     problem: 'Condensa, temperature difficili da gestire o dispersioni su grandi superfici.',
-    href: '/soluzioni/edifici-industriali',
+    href: '/soluzioni#soluzione-edifici-industriali',
     icon: 'building',
   },
 ]

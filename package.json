@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir .prerender-server && node scripts/prerender.mjs",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir .prerender-server && node scripts/prerender.mjs && node scripts/check-public-build.mjs",
+    "check:public": "node scripts/check-public-build.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "preview:dist": "node scripts/preview-dist.mjs"

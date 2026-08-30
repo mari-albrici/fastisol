@@ -18,7 +18,15 @@ npm run build
 
 La cartella `dist` è l'unico artefatto da pubblicare nel web root Host.it configurato. Il file `public/.htaccess` gestisce le pagine prerenderizzate, i 404 e il fallback React riservato al gestionale; viene copiato automaticamente in `dist`.
 
-La build prerenderizza tutte le route pubbliche in file HTML distinti, genera una pagina 404 reale e mantiene un file `gestionale-shell.html` separato per il solo gestionale. Per verificare localmente lo stesso comportamento degli URL puliti e dei codici HTTP:
+La build prerenderizza le nove pagine pubbliche reali in file HTML distinti, genera automaticamente la sitemap con la data di build, crea una pagina 404 reale e mantiene un file `gestionale-shell.html` separato per il solo gestionale. I quattordici approfondimenti in attesa di contenuti non vengono pubblicati come pagine autonome e confluiscono temporaneamente in `/soluzioni` o `/tecnologia`.
+
+Al termine della build viene eseguito anche un controllo bloccante su link interni, ancore, risorse, H1, title, description, canonical, robots, dati strutturati, pagine legali, sitemap, 404, assenza dei segnaposto e isolamento della shell gestionale. Può essere rilanciato sull’ultimo artefatto con:
+
+```bash
+npm run check:public
+```
+
+Per verificare localmente lo stesso comportamento degli URL puliti e dei codici HTTP:
 
 ```bash
 npm run build

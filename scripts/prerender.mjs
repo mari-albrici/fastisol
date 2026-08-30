@@ -1,6 +1,10 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
-import { prerenderPublicRoutes, renderPublicRoute } from '../.prerender-server/entry-server.js'
+import {
+  indexablePublicRoutes,
+  prerenderPublicRoutes,
+  renderPublicRoute,
+} from '../.prerender-server/entry-server.js'
 
 const projectRoot = resolve(import.meta.dirname, '..')
 const distDirectory = resolve(projectRoot, 'dist')
@@ -18,6 +22,15 @@ function escapeHtml(value) {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;')
 }
 
 function buildHead(seo) {
@@ -61,13 +74,24 @@ async function writeRoute(pathname, outputPath) {
   const absoluteOutputPath = resolve(distDirectory, outputPath)
   await mkdir(dirname(absoluteOutputPath), { recursive: true })
   await writeFile(absoluteOutputPath, createDocument(result), 'utf8')
+  return result
 }
 
+const renderedRoutes = new Map()
 for (const pathname of prerenderPublicRoutes) {
   const outputPath = pathname === '/' ? 'index.html' : `${pathname.slice(1)}.html`
-  await writeRoute(pathname, outputPath)
+  renderedRoutes.set(pathname, await writeRoute(pathname, outputPath))
 }
 
 await writeRoute('/pagina-non-trovata', '404.html')
 
-console.log(`Prerender completato: ${prerenderPublicRoutes.length} pagine pubbliche + 404; shell gestionale separata.`)
+const buildDate = new Date().toISOString().slice(0, 10)
+const sitemapEntries = indexablePublicRoutes.map((pathname) => {
+  const result = renderedRoutes.get(pathname)
+  if (!result) throw new Error(`Pagina indicizzabile non prerenderizzata: ${pathname}`)
+  return `  <url>\n    <loc>${escapeXml(result.seo.canonicalUrl)}</loc>\n    <lastmod>${buildDate}</lastmod>\n  </url>`
+})
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries.join('\n')}\n</urlset>\n`
+await writeFile(resolve(distDirectory, 'sitemap.xml'), sitemap, 'utf8')
+
+console.log(`Prerender completato: ${prerenderPublicRoutes.length} pagine pubbliche + 404; sitemap aggiornata; shell gestionale separata.`)

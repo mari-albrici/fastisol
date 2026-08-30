@@ -108,22 +108,22 @@ const applicationAreas = [
   {
     title: 'Tetti e falde',
     text: 'Per intervenire dall’interno tra travi, cambi di pendenza e dettagli difficili da sagomare con pannelli rigidi.',
-    href: '/soluzioni/isolamento-tetto',
+    href: '/soluzioni#tetto-o-sottotetto',
   },
   {
     title: 'Sottotetti',
     text: 'Sulla soletta oppure sotto la copertura, in base a come viene usato lo spazio e a quale volume deve restare riscaldato.',
-    href: '/soluzioni/isolamento-sottotetto',
+    href: '/soluzioni#soluzione-sottotetto-non-abitabile',
   },
   {
     title: 'Muricci e tavelloni',
     text: 'In spazi bassi e frammentati, dove la continuità dello strato e l’accessibilità richiedono un metodo specifico.',
-    href: '/soluzioni/muricci-e-tavelloni',
+    href: '/soluzioni#soluzione-muricci-e-tavelloni',
   },
   {
     title: 'Pareti e controsoffitti',
     text: 'All’interno di sistemi progettati con una finitura adeguata e dopo la verifica del comportamento del vapore.',
-    href: '/soluzioni/isolamento-interno',
+    href: '/soluzioni#soluzione-isolamento-interno',
   },
 ] as const
 
@@ -303,7 +303,7 @@ export function TechnologyPage() {
               <p>Per evitare condensa dentro la struttura bisogna comunque conoscere tutti gli strati del tetto, la loro posizione, le temperature e l’umidità degli ambienti. Anche ventilazione e tenuta della copertura restano fondamentali.</p>
               <p>Se sono già presenti macchie, muffa o gocciolamenti, la causa va individuata prima della posa. Coprire il problema senza una diagnosi può renderlo meno visibile, non risolverlo.</p>
             </div>
-            <Link className="technology-inline-link" to="/soluzioni/condensa">Come valutiamo la condensa <Icon name="arrow" size={18} /></Link>
+            <Link className="technology-inline-link" to="/soluzioni#soluzione-condensa">Come valutiamo la condensa <Icon name="arrow" size={18} /></Link>
           </div>
         </div>
       </section>

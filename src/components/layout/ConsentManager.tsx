@@ -84,6 +84,14 @@ export function ConsentManager() {
   return (
     <section className="consent-panel" aria-label="Preferenze cookie" role="region">
       <div className="consent-panel__content">
+        <button
+          type="button"
+          className="consent-panel__close"
+          aria-label="Chiudi e continua senza cookie non necessari"
+          onClick={() => save(deniedConsent)}
+        >
+          ×
+        </button>
         <div>
           <p className="consent-panel__title">La tua privacy, senza sorprese.</p>
           <p>

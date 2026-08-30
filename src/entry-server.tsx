@@ -3,10 +3,15 @@ import { PassThrough } from 'node:stream'
 import { renderToPipeableStream } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App'
-import { prerenderPublicRoutes } from './data/publicRoutes'
+import {
+  consolidatedPublicRoutes,
+  indexablePublicRoutes,
+  legalPublicRoutes,
+  prerenderPublicRoutes,
+} from './data/publicRoutes'
 import { setServerSeoCollector, type SeoSnapshot } from './utils/seoCollector'
 
-export { prerenderPublicRoutes }
+export { consolidatedPublicRoutes, indexablePublicRoutes, legalPublicRoutes, prerenderPublicRoutes }
 
 export interface PrerenderResult {
   appHtml: string

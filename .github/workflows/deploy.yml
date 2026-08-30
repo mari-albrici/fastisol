@@ -63,6 +63,8 @@ jobs:
           test -f dist/gestionale-shell.html
           test -f dist/preventivo.html
           test -f dist/faq.html
+          test -f dist/privacy-policy.html
+          test -f dist/cookie-policy.html
           test -f dist/404.html
           test -f dist/.htaccess
           test -f dist/robots.txt

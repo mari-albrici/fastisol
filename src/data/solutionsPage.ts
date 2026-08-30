@@ -1,86 +1,86 @@
 import type { IconName } from '../types/content'
 
 export interface SolutionCategory {
+  id: string
   title: string
   shortTitle: string
   problem: string
   description: string
   idealFor: string
-  href: string
   icon: IconName
 }
 
 export const solutionCategories: SolutionCategory[] = [
   {
+    id: 'soluzione-sottotetto-non-abitabile',
     title: 'Isolamento del sottotetto non abitabile',
     shortTitle: 'Sottotetto non abitabile',
     problem: 'L’ultimo piano è caldo d’estate e disperde calore in inverno.',
     description: 'Lo strato isolante viene valutato sulla soletta che separa la casa riscaldata dal vano sottotetto non utilizzato.',
     idealFor: 'Sottotetti visitati solo per manutenzione o accesso agli impianti.',
-    href: '/soluzioni/sottotetto-non-abitabile',
     icon: 'home',
   },
   {
+    id: 'soluzione-sottotetto-calpestabile',
     title: 'Isolamento del sottotetto calpestabile',
     shortTitle: 'Sottotetto calpestabile',
     problem: 'Lo spazio deve rimanere accessibile o utilizzabile come deposito.',
     description: 'Isolamento e piano di passaggio vengono progettati insieme, evitando che il calpestio schiacci o interrompa lo strato.',
     idealFor: 'Sottotetti usati come ripostiglio o con impianti da raggiungere.',
-    href: '/soluzioni/sottotetto-calpestabile',
     icon: 'layers',
   },
   {
+    id: 'soluzione-muricci-e-tavelloni',
     title: 'Sottotetto con muricci e tavelloni',
     shortTitle: 'Muricci e tavelloni',
     problem: 'Il vano è basso, frammentato e difficile da raggiungere con pannelli.',
     description: 'L’applicazione a spruzzo segue la soletta e i risvolti attorno ai muretti, dopo aver verificato accesso e condizioni del supporto.',
     idealFor: 'Coperture a nido d’ape diffuse negli edifici italiani del Novecento.',
-    href: '/soluzioni/muricci-e-tavelloni',
     icon: 'spray',
   },
   {
+    id: 'soluzione-tetto-in-legno',
     title: 'Isolamento del tetto in legno',
     shortTitle: 'Tetto in legno',
     problem: 'La mansarda o il locale sotto le falde è utilizzato e poco confortevole.',
     description: 'Si studia l’applicazione tra o sotto gli elementi della copertura, preservando struttura e dettagli che devono restare ispezionabili.',
     idealFor: 'Mansarde, recuperi di sottotetto e tetti con travi in legno.',
-    href: '/soluzioni/tetto-in-legno',
     icon: 'home',
   },
   {
+    id: 'soluzione-tetto-in-cemento',
     title: 'Isolamento del tetto in cemento o laterizio',
     shortTitle: 'Tetto in cemento',
     problem: 'La copertura esistente disperde ma intervenire dall’esterno sarebbe complesso.',
     description: 'Supporto, umidità e stratigrafia vengono controllati prima di definire un eventuale intervento dal lato interno.',
     idealFor: 'Falde e solai in laterocemento, cemento o muratura stabile.',
-    href: '/soluzioni/tetto-in-cemento',
     icon: 'building',
   },
   {
+    id: 'soluzione-isolamento-interno',
     title: 'Isolamento interno di pareti e soffitti',
     shortTitle: 'Pareti e soffitti',
     problem: 'Non è possibile intervenire sulla facciata o sul lato esterno.',
     description: 'Lo strato isolante viene inserito in un sistema interno completo, verificando ponti termici, passaggio del vapore e finitura.',
     idealFor: 'Riqualificazioni interne, controsoffitti e locali sopra spazi freddi.',
-    href: '/soluzioni/isolamento-interno',
     icon: 'layers',
   },
   {
+    id: 'soluzione-edifici-industriali',
     title: 'Isolamento di coperture industriali',
     shortTitle: 'Edifici industriali',
     problem: 'Grandi superfici, caldo, freddo o condensa rendono difficile usare il fabbricato.',
     description: 'L’intervento viene dimensionato sull’attività svolta, sul tipo di lamiera o struttura e sulle condizioni ambientali reali.',
     idealFor: 'Capannoni, laboratori, magazzini, attività commerciali e agricole.',
-    href: '/soluzioni/edifici-industriali',
     icon: 'building',
   },
   {
+    id: 'soluzione-condensa',
     title: 'Analisi dei problemi di condensa',
     shortTitle: 'Condensa',
     problem: 'Compaiono gocce, macchie o muffa e non è chiara la causa.',
     description: 'Prima di proporre l’isolamento si distinguono condensa superficiale, condensa interstiziale, infiltrazioni e ventilazione insufficiente.',
     idealFor: 'Abitazioni, sottotetti e coperture metalliche con umidità visibile.',
-    href: '/soluzioni/condensa',
     icon: 'shield',
   },
 ]

@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { SiteLayout } from './components/layout/SiteLayout'
-import { placeholderRoutes } from './data/publicRoutes'
+import { consolidatedPublicRoutes } from './data/publicRoutes'
 import { ManagementAuthProvider } from './management/AuthContext'
 import { ManagementGuard } from './management/ManagementGuard'
 import { ManagementLayout } from './management/ManagementLayout'
@@ -13,8 +13,9 @@ const TechnologyPage = lazy(() => import('./pages/TechnologyPage').then((module)
 const SolutionsPage = lazy(() => import('./pages/SolutionsPage').then((module) => ({ default: module.SolutionsPage })))
 const QuotePage = lazy(() => import('./pages/QuotePage').then((module) => ({ default: module.QuotePage })))
 const FaqPage = lazy(() => import('./pages/FaqPage').then((module) => ({ default: module.FaqPage })))
-const PlaceholderPage = lazy(() => import('./pages/PlaceholderPage').then((module) => ({ default: module.PlaceholderPage })))
-const NotFoundPage = lazy(() => import('./pages/PlaceholderPage').then((module) => ({ default: module.NotFoundPage })))
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then((module) => ({ default: module.PrivacyPolicyPage })))
+const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage').then((module) => ({ default: module.CookiePolicyPage })))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })))
 const ManagementLoginPage = lazy(() => import('./management/ManagementLoginPage').then((module) => ({ default: module.ManagementLoginPage })))
 const ManagementDashboardPage = lazy(() => import('./management/ManagementDashboardPage').then((module) => ({ default: module.ManagementDashboardPage })))
 const ManagementClientsPage = lazy(() => import('./management/ManagementClientsPage').then((module) => ({ default: module.ManagementClientsPage })))
@@ -84,8 +85,10 @@ export default function App() {
             <Route path="/soluzioni" element={<SolutionsPage />} />
             <Route path="/preventivo" element={<QuotePage />} />
             <Route path="/faq" element={<FaqPage />} />
-            {placeholderRoutes.map((route) => (
-              <Route key={route.path} path={route.path} element={<PlaceholderPage title={route.title} eyebrow={route.eyebrow} description={route.description} />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+            {consolidatedPublicRoutes.map((path) => (
+              <Route key={path} path={path} element={<Navigate to={path.startsWith('/tecnologia/') ? '/tecnologia' : '/soluzioni'} replace />} />
             ))}
             <Route path="*" element={<NotFoundPage />} />
           </Route>

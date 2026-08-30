@@ -11,7 +11,10 @@ export interface ConsentPreferences {
 
 export type AnalyticsEventParameters = Record<string, string | number | boolean | undefined>
 
-const CONSENT_STORAGE_KEY = 'fastisol-consent-v1'
+const CONSENT_STORAGE_KEY = 'fastisol-consent-v2'
+const LEGACY_CONSENT_STORAGE_KEY = 'fastisol-consent-v1'
+const CONSENT_STORAGE_VERSION = 2
+const CONSENT_MAX_AGE_MS = 180 * 24 * 60 * 60 * 1000
 const CONSENT_EVENT_NAME = 'fastisol:consent-change'
 const OPEN_SETTINGS_EVENT_NAME = 'fastisol:open-cookie-settings'
 
@@ -99,12 +102,25 @@ export function getStoredConsent(): ConsentPreferences | null {
   if (typeof window === 'undefined') return null
 
   try {
+    window.localStorage.removeItem(LEGACY_CONSENT_STORAGE_KEY)
     const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY)
     if (!stored) return null
-    const parsed = JSON.parse(stored) as Partial<ConsentPreferences>
-    if (typeof parsed.analytics !== 'boolean' || typeof parsed.marketing !== 'boolean') return null
-    return { analytics: parsed.analytics, marketing: parsed.marketing }
+    const parsed = JSON.parse(stored) as Partial<ConsentPreferences> & { version?: number; updatedAt?: number }
+    const analytics = parsed.analytics
+    const marketing = parsed.marketing
+    const isValid = parsed.version === CONSENT_STORAGE_VERSION
+      && typeof parsed.updatedAt === 'number'
+      && Date.now() - parsed.updatedAt <= CONSENT_MAX_AGE_MS
+      && typeof analytics === 'boolean'
+      && typeof marketing === 'boolean'
+
+    if (!isValid) {
+      window.localStorage.removeItem(CONSENT_STORAGE_KEY)
+      return null
+    }
+    return { analytics, marketing }
   } catch {
+    window.localStorage.removeItem(CONSENT_STORAGE_KEY)
     return null
   }
 }
@@ -122,10 +138,15 @@ export function initializeConsentDefaults() {
 
 export function applyConsent(preferences: ConsentPreferences, persist = true) {
   if (typeof window === 'undefined') return
+  const previousConsent = activeConsent
   activeConsent = preferences
 
   if (persist) {
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(preferences))
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({
+      version: CONSENT_STORAGE_VERSION,
+      updatedAt: Date.now(),
+      ...preferences,
+    }))
   }
 
   updateGoogleConsent(preferences)
@@ -138,7 +159,29 @@ export function applyConsent(preferences: ConsentPreferences, persist = true) {
     window.fbq?.('consent', 'revoke')
   }
 
+  if (previousConsent.analytics && !preferences.analytics) {
+    deleteFirstPartyCookies(['_ga', '_ga_'])
+  }
+  if (previousConsent.marketing && !preferences.marketing) {
+    deleteFirstPartyCookies(['_fbp', '_gcl_', '_gac_'])
+  }
+
   window.dispatchEvent(new CustomEvent<ConsentPreferences>(CONSENT_EVENT_NAME, { detail: preferences }))
+}
+
+function deleteFirstPartyCookies(prefixes: string[]) {
+  const cookieNames = document.cookie
+    .split(';')
+    .map((cookie) => cookie.split('=')[0]?.trim())
+    .filter((name): name is string => Boolean(name) && prefixes.some((prefix) => name.startsWith(prefix)))
+
+  const hostParts = window.location.hostname.split('.')
+  const parentDomain = hostParts.length > 1 ? `.${hostParts.slice(-2).join('.')}` : null
+
+  cookieNames.forEach((name) => {
+    document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`
+    if (parentDomain) document.cookie = `${name}=; Max-Age=0; path=/; domain=${parentDomain}; SameSite=Lax`
+  })
 }
 
 export function trackPageView(path: string, title: string) {
