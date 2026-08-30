@@ -1,0 +1,3 @@
+export const fiscalRegimes = [
+  ['RF01', 'Ordinario'], ['RF02', 'Contribuenti minimi'], ['RF04', 'Agricoltura e pesca'], ['RF05', 'Vendita sali e tabacchi'], ['RF06', 'Commercio fiammiferi'], ['RF07', 'Editoria'], ['RF08', 'Telefonia'], ['RF09', 'Trasporto pubblico e sosta'], ['RF10', 'Intrattenimenti e giochi'], ['RF11', 'Agenzie viaggi'], ['RF12', 'Agriturismo'], ['RF13', 'Vendite a domicilio'], ['RF14', 'Rivendita beni usati'], ['RF15', 'Agenzie di vendita all’asta'], ['RF16', 'IVA per cassa PA'], ['RF17', 'IVA per cassa'], ['RF18', 'Altro'], ['RF19', 'Regime forfettario'], ['RF20', 'Regime transfrontaliero di franchigia'],
+] as const

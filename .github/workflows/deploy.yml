@@ -1,4 +1,4 @@
-name: Build and deploy to SiteGround
+name: Build and deploy to Host.it
 
 on:
   workflow_dispatch:
@@ -7,6 +7,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: fastisol-production
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -19,22 +23,103 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Validate production build configuration
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          if [[ -z "$VITE_SUPABASE_URL" || -z "$VITE_SUPABASE_ANON_KEY" ]]; then
+            echo "::error::VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY must be configured as production secrets."
+            exit 1
+          fi
+
       - name: Build
+        env:
+          VITE_SITE_URL: https://fastisol.it
+          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+          VITE_GTM_CONTAINER_ID: ${{ secrets.VITE_GTM_CONTAINER_ID }}
+          VITE_META_PIXEL_ID: ${{ secrets.VITE_META_PIXEL_ID }}
+          VITE_CONTACT_FORM_ENDPOINT: ${{ secrets.VITE_CONTACT_FORM_ENDPOINT }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+          VITE_GOOGLE_CALENDAR_ID: ${{ secrets.VITE_GOOGLE_CALENDAR_ID }}
+          VITE_MANAGEMENT_USERNAME: ${{ secrets.VITE_MANAGEMENT_USERNAME }}
+          VITE_MANAGEMENT_EMAIL: ${{ secrets.VITE_MANAGEMENT_EMAIL }}
         run: npm run build
 
-      - name: Deploy dist via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.SG_HOST }}
-          username: ${{ secrets.SG_USERNAME }}
-          password: ${{ secrets.SG_PASSWORD }}
-          port: ${{ secrets.SG_PORT }}
-          local_path: ./dist/*
-          remote_path: ${{ secrets.SG_REMOTE_PATH }}
-          sftp_only: true
+      - name: Validate production artifact
+        run: |
+          test -f dist/index.html
+          test -f dist/.htaccess
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          if find dist -type f -name '*.map' -print -quit | grep -q .; then
+            echo "::error::Unexpected source maps found in dist."
+            exit 1
+          fi
+
+      - name: Validate Host.it configuration
+        env:
+          HOSTIT_HOST: ${{ secrets.HOSTIT_HOST }}
+          HOSTIT_USERNAME: ${{ secrets.HOSTIT_USERNAME }}
+          HOSTIT_PORT: ${{ secrets.HOSTIT_PORT }}
+          HOSTIT_REMOTE_PATH: ${{ secrets.HOSTIT_REMOTE_PATH }}
+          HOSTIT_SSH_KEY: ${{ secrets.HOSTIT_SSH_KEY }}
+          HOSTIT_KNOWN_HOSTS: ${{ secrets.HOSTIT_KNOWN_HOSTS }}
+        run: |
+          for variable in HOSTIT_HOST HOSTIT_USERNAME HOSTIT_PORT HOSTIT_REMOTE_PATH HOSTIT_SSH_KEY HOSTIT_KNOWN_HOSTS; do
+            if [[ -z "${!variable}" ]]; then
+              echo "::error::$variable is not configured."
+              exit 1
+            fi
+          done
+          if [[ ! "$HOSTIT_PORT" =~ ^[0-9]+$ ]]; then
+            echo "::error::HOSTIT_PORT must be numeric."
+            exit 1
+          fi
+          if [[ "$HOSTIT_REMOTE_PATH" == *$'\n'* || "$HOSTIT_REMOTE_PATH" == *'"'* ]]; then
+            echo "::error::HOSTIT_REMOTE_PATH contains unsupported characters."
+            exit 1
+          fi
+
+      - name: Configure SSH
+        env:
+          HOSTIT_SSH_KEY: ${{ secrets.HOSTIT_SSH_KEY }}
+          HOSTIT_KNOWN_HOSTS: ${{ secrets.HOSTIT_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$HOSTIT_SSH_KEY" > "$HOME/.ssh/hostit_deploy_key"
+          printf '%s\n' "$HOSTIT_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/hostit_deploy_key" "$HOME/.ssh/known_hosts"
+
+      - name: Deploy dist contents via SFTP
+        env:
+          HOSTIT_HOST: ${{ secrets.HOSTIT_HOST }}
+          HOSTIT_USERNAME: ${{ secrets.HOSTIT_USERNAME }}
+          HOSTIT_PORT: ${{ secrets.HOSTIT_PORT }}
+          HOSTIT_REMOTE_PATH: ${{ secrets.HOSTIT_REMOTE_PATH }}
+        run: |
+          {
+            printf 'cd "%s"\n' "$HOSTIT_REMOTE_PATH"
+            printf 'lcd dist\n'
+            printf 'put .htaccess\n'
+            printf 'put -r *\n'
+          } > "$RUNNER_TEMP/hostit-deploy.sftp"
+          sftp \
+            -b "$RUNNER_TEMP/hostit-deploy.sftp" \
+            -i "$HOME/.ssh/hostit_deploy_key" \
+            -P "$HOSTIT_PORT" \
+            -o BatchMode=yes \
+            -o ConnectTimeout=15 \
+            -o StrictHostKeyChecking=yes \
+            "$HOSTIT_USERNAME@$HOSTIT_HOST"

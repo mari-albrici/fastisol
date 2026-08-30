@@ -46,7 +46,7 @@ export function ManagementLoginPage() {
         <div className="management-login__heading">
           <span>Area riservata</span>
           <h1 id="login-title">Accedi al gestionale</h1>
-          <p>Clienti, lavori e documenti in un unico spazio protetto.</p>
+          <p>Clienti, preventivi e fatture proforma in un unico spazio protetto.</p>
         </div>
 
         {!isManagementConfigured ? (
@@ -80,4 +80,3 @@ export function ManagementLoginPage() {
     </main>
   )
 }
-

@@ -1,0 +1,50 @@
+import { useEffect, useMemo, useState } from 'react'
+import { useManagementAuth } from './AuthContext'
+import { ManagementIcon } from './ManagementIcon'
+import { supabase } from './supabase'
+import type { AuditLog, BackupSnapshot } from './types'
+import { formatDate } from './utils'
+
+const trashTables = ['clients','suppliers','documents','projects','purchase_documents','expenses','sales_payments','purchase_orders','delivery_notes','inventory_lots','inventory_usages','warranties','resource_files','reminders','client_interactions','client_files'] as const
+const tableLabels: Record<string,string> = { clients:'Clienti',suppliers:'Fornitori',documents:'Documenti',projects:'Commesse',purchase_documents:'Fatture passive',expenses:'Spese',sales_payments:'Incassi',purchase_orders:'Ordini',delivery_notes:'DDT',inventory_lots:'Lotti',inventory_usages:'Consumi',warranties:'Garanzie',resource_files:'Schede',reminders:'Scadenze',client_interactions:'Attività cliente',client_files:'Allegati cliente',catalog_items:'Listino',teams:'Squadre',calendar_events:'Agenda',project_diary_entries:'Diario cantiere' }
+type TrashItem = { table: string; id: string; label: string; deleted_at: string }
+
+export function ManagementSecurityPage() {
+  const { session } = useManagementAuth()
+  const [tab,setTab] = useState<'security'|'backup'|'audit'|'trash'>('security')
+  const [logs,setLogs] = useState<AuditLog[]>([]); const [snapshots,setSnapshots] = useState<BackupSnapshot[]>([]); const [trash,setTrash] = useState<TrashItem[]>([])
+  const [factors,setFactors] = useState<Array<{id:string;friendly_name?:string;status:string}>>([])
+  const [enrollment,setEnrollment] = useState<{id:string;qr:string}|null>(null); const [code,setCode] = useState(''); const [message,setMessage] = useState(''); const [error,setError] = useState(''); const [busy,setBusy] = useState(false)
+
+  const load = async () => {
+    const [logResult,snapshotResult,factorResult] = await Promise.all([
+      supabase.from('audit_logs').select('*').order('created_at',{ascending:false}).limit(200),
+      supabase.from('backup_snapshots').select('*').order('created_at',{ascending:false}).limit(20),
+      supabase.auth.mfa.listFactors(),
+    ])
+    if (!logResult.error) setLogs((logResult.data??[]) as AuditLog[])
+    if (!snapshotResult.error) setSnapshots((snapshotResult.data??[]) as BackupSnapshot[])
+    setFactors((factorResult.data?.totp??[]) as Array<{id:string;friendly_name?:string;status:string}>)
+    const rows = await Promise.all(trashTables.map(async (table) => { const {data}=await supabase.from(table).select('*').not('deleted_at','is',null).order('deleted_at',{ascending:false}).limit(50); return (data??[]).map((item:Record<string,unknown>)=>({table,id:String(item.id),deleted_at:String(item.deleted_at),label:recordLabel(table,item)})) }))
+    setTrash(rows.flat().sort((a,b)=>b.deleted_at.localeCompare(a.deleted_at)))
+  }
+  useEffect(()=>{const timer=window.setTimeout(()=>void load(),0);return()=>window.clearTimeout(timer)},[])
+
+  const enroll = async () => { setBusy(true);setError(''); const result=await supabase.auth.mfa.enroll({factorType:'totp',friendlyName:'Gestionale Fastisol'}); if(result.error)setError(result.error.message); else setEnrollment({id:result.data.id,qr:result.data.totp.qr_code}); setBusy(false) }
+  const verify = async () => { if(!enrollment)return;setBusy(true);setError(''); const challenge=await supabase.auth.mfa.challenge({factorId:enrollment.id}); if(challenge.error)setError(challenge.error.message); else { const verified=await supabase.auth.mfa.verify({factorId:enrollment.id,challengeId:challenge.data.id,code}); if(verified.error)setError('Codice non valido. Riprova.'); else {setEnrollment(null);setCode('');setMessage('Autenticazione a due fattori attivata.');await load()} } setBusy(false) }
+  const removeFactor = async (id:string) => { if(!window.confirm('Disattivare questo secondo fattore?'))return; const {error:removeError}=await supabase.auth.mfa.unenroll({factorId:id}); if(removeError)setError(removeError.message);else await load() }
+  const snapshot = async () => { setBusy(true);setError(''); const {error:snapshotError}=await supabase.rpc('create_management_snapshot',{p_label:`Backup manuale ${new Date().toLocaleString('it-IT')}`}); if(snapshotError)setError('Backup non creato. Esegui la migrazione business suite.');else {setMessage('Snapshot creato. Scaricalo e conservalo fuori da Supabase.');await load()}setBusy(false) }
+  const download = (item:BackupSnapshot) => { const blob=new Blob([JSON.stringify(item.payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`fastisol-backup-${item.created_at.slice(0,10)}.json`;a.click();URL.revokeObjectURL(url) }
+  const restore = async (item:TrashItem) => { const {error:restoreError}=await supabase.rpc('restore_archived_record',{p_table:item.table,p_id:item.id});if(restoreError)setError('Ripristino non riuscito.');else {setMessage('Elemento ripristinato.');await load()} }
+  const activeMfa=useMemo(()=>factors.filter(f=>f.status==='verified'),[factors])
+  return <div><div className="management-page-heading"><div><span>Protezione e controllo</span><h1>Sicurezza e manutenzione</h1><p>MFA, backup, registro modifiche e cestino recuperabile.</p></div></div>{error&&<div className="management-alert management-alert--error">{error}</div>}{message&&<div className="management-alert management-alert--success">{message}</div>}
+    <div className="management-tabs"><button className={tab==='security'?'is-active':undefined} onClick={()=>setTab('security')}>Sicurezza</button><button className={tab==='backup'?'is-active':undefined} onClick={()=>setTab('backup')}>Backup</button><button className={tab==='audit'?'is-active':undefined} onClick={()=>setTab('audit')}>Registro attività</button><button className={tab==='trash'?'is-active':undefined} onClick={()=>setTab('trash')}>Cestino ({trash.length})</button></div>
+    {tab==='security'&&<section className="management-card management-security-panel"><div className="management-card__header"><div><h2>Autenticazione a due fattori</h2><p>Account: {session?.user.email}</p></div><span className={`management-billing-status ${activeMfa.length?'is-complete':'is-incomplete'}`}>{activeMfa.length?'Attiva':'Non attiva'}</span></div><div className="management-security-body">{activeMfa.map(f=><article key={f.id}><div><strong>{f.friendly_name||'App Authenticator'}</strong><small>Fattore verificato</small></div><button className="management-secondary-button" onClick={()=>void removeFactor(f.id)}>Disattiva</button></article>)}{!enrollment&&<button className="management-primary-button" disabled={busy} onClick={()=>void enroll()}><ManagementIcon name="shield"/> Configura Authenticator</button>}{enrollment&&<div className="management-mfa-enroll"><img src={enrollment.qr} alt="QR code per app Authenticator"/><p>Scansiona il QR con Google Authenticator, Microsoft Authenticator o altra app TOTP, quindi inserisci il codice.</p><input inputMode="numeric" maxLength={6} value={code} onChange={e=>setCode(e.target.value.replace(/\D/g,''))} placeholder="Codice a 6 cifre"/><button className="management-primary-button" disabled={busy||code.length!==6} onClick={()=>void verify()}>Verifica e attiva</button></div>}</div></section>}
+    {tab==='backup'&&<section className="management-card"><div className="management-card__header"><div><h2>Snapshot del database</h2><p>Crea una copia JSON dei dati gestionali. Gli allegati restano nello Storage e vanno inclusi nel backup del provider.</p></div><button className="management-primary-button" disabled={busy} onClick={()=>void snapshot()}><ManagementIcon name="download"/> Crea snapshot</button></div><div className="management-table-wrap"><table className="management-table"><thead><tr><th>Data</th><th>Etichetta</th><th/></tr></thead><tbody>{snapshots.map(item=><tr key={item.id}><td>{new Date(item.created_at).toLocaleString('it-IT')}</td><td>{item.label||'Snapshot'}</td><td><button className="management-secondary-button" onClick={()=>download(item)}>Scarica JSON</button></td></tr>)}</tbody></table></div></section>}
+    {tab==='audit'&&<section className="management-card"><div className="management-table-wrap"><table className="management-table"><thead><tr><th>Data</th><th>Sezione</th><th>Azione</th><th>Elemento</th><th>Dettaglio</th></tr></thead><tbody>{logs.map(log=><tr key={log.id}><td>{new Date(log.created_at).toLocaleString('it-IT')}</td><td>{tableLabels[log.table_name]||log.table_name}</td><td><span className={`management-badge status-${log.action==='DELETE'?'cancelled':log.action==='INSERT'?'accepted':'sent'}`}>{log.action==='INSERT'?'Creazione':log.action==='UPDATE'?'Modifica':'Eliminazione'}</span></td><td>{log.record_id?.slice(0,8)||'—'}</td><td><small>{changedFields(log).join(', ')||'Record completo'}</small></td></tr>)}</tbody></table></div></section>}
+    {tab==='trash'&&<section className="management-card"><div className="management-table-wrap"><table className="management-table"><thead><tr><th>Sezione</th><th>Elemento</th><th>Archiviato</th><th/></tr></thead><tbody>{trash.map(item=><tr key={`${item.table}-${item.id}`}><td>{tableLabels[item.table]||item.table}</td><td><strong>{item.label}</strong></td><td>{formatDate(item.deleted_at)}</td><td><button className="management-secondary-button" onClick={()=>void restore(item)}>Ripristina</button></td></tr>)}</tbody></table></div>{trash.length===0&&<div className="management-empty">Il cestino è vuoto.</div>}</section>}
+  </div>
+}
+
+function recordLabel(table:string,item:Record<string,unknown>){return String(item.company_name||item.contact_name||item.number||item.code||item.name||item.title||item.description||item.material_name||`${table} ${String(item.id).slice(0,8)}`)}
+function changedFields(log:AuditLog){if(log.action!=='UPDATE'||!log.old_data||!log.new_data)return[];return Object.keys(log.new_data).filter(k=>JSON.stringify(log.old_data?.[k])!==JSON.stringify(log.new_data?.[k])&&!['updated_at'].includes(k)).slice(0,8)}

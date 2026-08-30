@@ -1,20 +1,48 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { BrandLogo } from '../components/ui/BrandLogo'
 import { useManagementAuth } from './AuthContext'
 import { ManagementIcon, type ManagementIconName } from './ManagementIcon'
+import { supabase } from './supabase'
 
-const navItems: Array<{ to: string; label: string; icon: ManagementIconName; end?: boolean }> = [
-  { to: '/gestionale', label: 'Panoramica', icon: 'dashboard', end: true },
-  { to: '/gestionale/clienti', label: 'Clienti', icon: 'clients' },
-  { to: '/gestionale/lavori', label: 'Lavori', icon: 'jobs' },
-  { to: '/gestionale/documenti', label: 'Documenti', icon: 'documents' },
+type NavItem = { to: string; label: string; icon: ManagementIconName; end?: boolean }
+const navGroups: Array<{ label?: string; items: NavItem[] }> = [
+  { items: [{ to: '/gestionale', label: 'Panoramica', icon: 'dashboard', end: true }] },
+  { label: 'Commerciale', items: [
+    { to: '/gestionale/clienti', label: 'Clienti', icon: 'clients' },
+    { to: '/gestionale/fornitori', label: 'Fornitori', icon: 'truck' },
+  ] },
+  { label: 'Operatività', items: [
+    { to: '/gestionale/commesse', label: 'Cantieri e commesse', icon: 'warehouse' },
+    { to: '/gestionale/operativita', label: 'Agenda e cantieri', icon: 'calendar' },
+    { to: '/gestionale/garanzie', label: 'Garanzie', icon: 'shield' },
+  ] },
+  { label: 'Magazzino e acquisti', items: [
+    { to: '/gestionale/magazzino', label: 'Lotti e barili', icon: 'warehouse' },
+    { to: '/gestionale/scorte', label: 'Scorte e tracciabilità', icon: 'warehouse' },
+    { to: '/gestionale/acquisti', label: 'Ordini e DDT', icon: 'truck' },
+    { to: '/gestionale/listino', label: 'Listino', icon: 'note' },
+  ] },
+  { label: 'Amministrazione', items: [
+    { to: '/gestionale/incassi', label: 'Incassi e insoluti', icon: 'dashboard' },
+    { to: '/gestionale/contabilita', label: 'Fatture passive e spese', icon: 'documents' },
+    { to: '/gestionale/importa-fatture-passive', label: 'Importa XML passivi', icon: 'upload' },
+    { to: '/gestionale/scadenziario', label: 'Scadenziario', icon: 'calendar' },
+  ] },
+  { label: 'Archivio e sistema', items: [
+    { to: '/gestionale/schede-certificazioni', label: 'Schede e certificazioni', icon: 'folder' },
+    { to: '/gestionale/controllo', label: 'Ricerca e controlli', icon: 'search' },
+    { to: '/gestionale/impostazioni', label: 'Impostazioni', icon: 'settings' },
+    { to: '/gestionale/sicurezza', label: 'Sicurezza e backup', icon: 'shield' },
+  ] },
 ]
 
 export function ManagementLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { signOut } = useManagementAuth()
   const navigate = useNavigate()
+
+  useEffect(()=>{const today=new Date().toISOString().slice(0,10);const key='fastisol-last-auto-snapshot';if(localStorage.getItem(key)===today)return;void supabase.rpc('create_management_snapshot',{p_label:`Snapshot automatico ${today}`}).then(({error})=>{if(!error)localStorage.setItem(key,today)})},[])
 
   const handleSignOut = async () => {
     await signOut()
@@ -34,12 +62,32 @@ export function ManagementLayout() {
           </button>
         </div>
         <nav className="management-nav" aria-label="Navigazione gestionale">
-          {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
-              <ManagementIcon name={item.icon} />
-              {item.label}
+          {navGroups.slice(0, 2).map((group, index) => <div className="management-nav__section" key={group.label ?? index}>
+            {group.label && <span className="management-nav__section-label">{group.label}</span>}
+            {group.items.map((item) => <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
+              <ManagementIcon name={item.icon} />{item.label}
+            </NavLink>)}
+          </div>)}
+          <div className="management-nav__group">
+            <span className="management-nav__section-label">Documenti commerciali</span>
+            <NavLink className={({ isActive }) => `management-nav__parent${isActive ? ' is-active' : ''}`} to="/gestionale/documenti" end onClick={() => setMenuOpen(false)}>
+              <ManagementIcon name="documents" /> Documenti
             </NavLink>
-          ))}
+            <div className="management-nav__subnav">
+              <NavLink to="/gestionale/documenti/preventivi" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
+                Preventivi
+              </NavLink>
+              <NavLink to="/gestionale/documenti/proforma" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
+                Fatture proforma
+              </NavLink>
+            </div>
+          </div>
+          {navGroups.slice(2).map((group, index) => <div className="management-nav__section" key={group.label ?? index}>
+            {group.label && <span className="management-nav__section-label">{group.label}</span>}
+            {group.items.map((item) => <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
+              <ManagementIcon name={item.icon} />{item.label}
+            </NavLink>)}
+          </div>)}
         </nav>
         <div className="management-sidebar__footer">
           <Link to="/">Torna al sito pubblico</Link>
