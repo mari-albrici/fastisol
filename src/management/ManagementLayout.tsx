@@ -9,25 +9,15 @@ type NavItem = { to: string; label: string; icon: ManagementIconName; end?: bool
 const navGroups: Array<{ label?: string; items: NavItem[] }> = [
   { items: [{ to: '/gestionale', label: 'Panoramica', icon: 'dashboard', end: true }] },
   { label: 'Commerciale', items: [
-    { to: '/gestionale/clienti', label: 'Clienti', icon: 'clients' },
     { to: '/gestionale/fornitori', label: 'Fornitori', icon: 'truck' },
   ] },
   { label: 'Operatività', items: [
-    { to: '/gestionale/commesse', label: 'Cantieri e commesse', icon: 'warehouse' },
-    { to: '/gestionale/operativita', label: 'Agenda e cantieri', icon: 'calendar' },
     { to: '/gestionale/garanzie', label: 'Garanzie', icon: 'shield' },
   ] },
-  { label: 'Magazzino e acquisti', items: [
+  { label: 'Magazzino', items: [
     { to: '/gestionale/magazzino', label: 'Lotti e barili', icon: 'warehouse' },
     { to: '/gestionale/scorte', label: 'Scorte e tracciabilità', icon: 'warehouse' },
-    { to: '/gestionale/acquisti', label: 'Ordini e DDT', icon: 'truck' },
     { to: '/gestionale/listino', label: 'Listino', icon: 'note' },
-  ] },
-  { label: 'Amministrazione', items: [
-    { to: '/gestionale/incassi', label: 'Incassi e insoluti', icon: 'dashboard' },
-    { to: '/gestionale/contabilita', label: 'Fatture passive e spese', icon: 'documents' },
-    { to: '/gestionale/importa-fatture-passive', label: 'Importa XML passivi', icon: 'upload' },
-    { to: '/gestionale/scadenziario', label: 'Scadenziario', icon: 'calendar' },
   ] },
   { label: 'Archivio e sistema', items: [
     { to: '/gestionale/schede-certificazioni', label: 'Schede e certificazioni', icon: 'folder' },
@@ -68,20 +58,6 @@ export function ManagementLayout() {
               <ManagementIcon name={item.icon} />{item.label}
             </NavLink>)}
           </div>)}
-          <div className="management-nav__group">
-            <span className="management-nav__section-label">Documenti commerciali</span>
-            <NavLink className={({ isActive }) => `management-nav__parent${isActive ? ' is-active' : ''}`} to="/gestionale/documenti" end onClick={() => setMenuOpen(false)}>
-              <ManagementIcon name="documents" /> Documenti
-            </NavLink>
-            <div className="management-nav__subnav">
-              <NavLink to="/gestionale/documenti/preventivi" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
-                Preventivi
-              </NavLink>
-              <NavLink to="/gestionale/documenti/proforma" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>
-                Fatture proforma
-              </NavLink>
-            </div>
-          </div>
           {navGroups.slice(2).map((group, index) => <div className="management-nav__section" key={group.label ?? index}>
             {group.label && <span className="management-nav__section-label">{group.label}</span>}
             {group.items.map((item) => <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'is-active' : undefined}>

@@ -4,6 +4,7 @@ import {
   consolidatedPublicRoutes,
   indexablePublicRoutes,
   legalPublicRoutes,
+  maintenancePublicRoutes,
   prerenderPublicRoutes,
 } from '../.prerender-server/entry-server.js'
 
@@ -77,9 +78,12 @@ for (const [pathname, body] of pageBodies) {
   if (countMatches(body, /<link rel="canonical"/g) !== 1) fail(`${pathname}: canonical mancante o duplicata.`)
   if (countMatches(body, /<meta name="robots"/g) !== 1 || !robots) fail(`${pathname}: meta robots mancante o duplicato.`)
   if (countMatches(body, /<h1\b/g) !== 1) fail(`${pathname}: deve essere presente esattamente un H1.`)
-  if (countMatches(body, /id="page-structured-data"/g) !== 1) fail(`${pathname}: dati strutturati mancanti o duplicati.`)
+  if (!maintenancePublicRoutes.includes(pathname) && countMatches(body, /id="page-structured-data"/g) !== 1) fail(`${pathname}: dati strutturati mancanti o duplicati.`)
   if (body.includes('Sezione predisposta')) fail(`${pathname}: rilevato testo da pagina segnaposto.`)
 
+  if (maintenancePublicRoutes.includes(pathname) && !robots.startsWith('noindex, nofollow')) {
+    fail(`${pathname}: pagina in manutenzione non protetta da noindex.`)
+  }
   if (indexablePublicRoutes.includes(pathname) && !robots.startsWith('index, follow')) {
     fail(`${pathname}: pagina pubblica principale non indicizzabile.`)
   }

@@ -1,7 +1,8 @@
+export const maintenancePublicRoutes = ['/'] as const
+
 export const legalPublicRoutes = ['/privacy-policy', '/cookie-policy'] as const
 
 export const indexablePublicRoutes = [
-  '/',
   '/soluzioni',
   '/tecnologia',
   '/azienda',
@@ -11,6 +12,7 @@ export const indexablePublicRoutes = [
 ] as const
 
 export const prerenderPublicRoutes = [
+  ...maintenancePublicRoutes,
   ...indexablePublicRoutes,
   ...legalPublicRoutes,
 ] as const

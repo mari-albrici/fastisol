@@ -16,7 +16,7 @@ npm run lint
 npm run build
 ```
 
-La cartella `dist` è l'unico artefatto da pubblicare nel web root Host.it configurato. Il file `public/.htaccess` gestisce le pagine prerenderizzate, i 404 e il fallback React riservato al gestionale; viene copiato automaticamente in `dist`.
+La cartella `dist` è l'unico artefatto da pubblicare nel web root SiteGround configurato. Il file `public/.htaccess` gestisce le pagine prerenderizzate, i 404 e il fallback React riservato al gestionale; viene copiato automaticamente in `dist`.
 
 La build prerenderizza le nove pagine pubbliche reali in file HTML distinti, genera automaticamente la sitemap con la data di build, crea una pagina 404 reale e mantiene un file `gestionale-shell.html` separato per il solo gestionale. I quattordici approfondimenti in attesa di contenuti non vengono pubblicati come pagine autonome e confluiscono temporaneamente in `/soluzioni` o `/tecnologia`.
 
@@ -37,22 +37,22 @@ npm run preview:dist
 
 Il tracciamento pubblico viene caricato soltanto dopo la scelta dell'utente. Sono supportati Google Tag Manager, Google Analytics 4 e Meta Pixel tramite le variabili presenti in `.env.example`. Se è configurato GTM, il contenitore ha precedenza sul caricamento diretto di GA4 e deve gestire i tag Google al proprio interno. Il sito invia eventi per page view SPA, telefono, email, WhatsApp, avvio preventivo, avvio modulo, errori e lead completati. Il gestionale non monta il gestore del consenso né questi eventi pubblici.
 
-### Deploy su Host.it
+### Deploy su SiteGround
 
-Il workflow `.github/workflows/deploy.yml` esegue installazione pulita, lint, build e upload SFTP del solo contenuto di `dist`. L'upload sovrascrive i file omonimi ma non elimina file o directory già presenti sul server.
+Il workflow `.github/workflows/deploy.yml` esegue installazione pulita, lint, build e upload SFTP del solo contenuto di `dist`. L'upload sovrascrive i file omonimi ma non elimina file o directory già presenti sul server. SiteGround deve avere Apache con `mod_rewrite`, `mod_headers`, `mod_setenvif` e `mod_deflate` attivi, normalmente disponibili nei piani hosting.
 
 Configurare nell'environment GitHub `production` i secret obbligatori:
 
-- `HOSTIT_HOST`
-- `HOSTIT_USERNAME`
-- `HOSTIT_PORT`
-- `HOSTIT_REMOTE_PATH`
-- `HOSTIT_SSH_KEY`
-- `HOSTIT_KNOWN_HOSTS`
+- `SITEGROUND_HOST`
+- `SITEGROUND_USERNAME`
+- `SITEGROUND_PORT` (la porta SFTP indicata da SiteGround, spesso `18765`)
+- `SITEGROUND_REMOTE_PATH` (per esempio `/home/customer/www/fastisol.it/public_html`)
+- `SITEGROUND_SSH_KEY`
+- `SITEGROUND_KNOWN_HOSTS`
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY` (chiave anon legacy oppure publishable; mai `service_role` o secret key)
 
-Le altre variabili `VITE_*` elencate in `.env.example` possono essere aggiunte come secret se la relativa funzione è utilizzata. Tutte le variabili `VITE_*` finiscono nel bundle pubblico: non devono mai contenere password, chiavi `service_role`/secret o credenziali incorporate negli URL. Il percorso remoto deve essere quello esatto indicato da Host.it/DirectAdmin: il workflow non presume che sia `public_html`.
+Le altre variabili `VITE_*` elencate in `.env.example` possono essere aggiunte come secret se la relativa funzione è utilizzata. Tutte le variabili `VITE_*` finiscono nel bundle pubblico: non devono mai contenere password, chiavi `service_role`/secret o credenziali incorporate negli URL. Il percorso remoto deve essere quello esatto indicato dal Site Tools di SiteGround: il workflow non presume che sia `public_html`.
 
 ## Mini gestionale
 

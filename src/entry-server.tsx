@@ -7,11 +7,12 @@ import {
   consolidatedPublicRoutes,
   indexablePublicRoutes,
   legalPublicRoutes,
+  maintenancePublicRoutes,
   prerenderPublicRoutes,
 } from './data/publicRoutes'
 import { setServerSeoCollector, type SeoSnapshot } from './utils/seoCollector'
 
-export { consolidatedPublicRoutes, indexablePublicRoutes, legalPublicRoutes, prerenderPublicRoutes }
+export { consolidatedPublicRoutes, indexablePublicRoutes, legalPublicRoutes, maintenancePublicRoutes, prerenderPublicRoutes }
 
 export interface PrerenderResult {
   appHtml: string

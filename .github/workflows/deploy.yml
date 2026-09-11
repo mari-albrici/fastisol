@@ -1,4 +1,4 @@
-name: Build and deploy to Host.it
+name: Build and deploy to SiteGround
 
 on:
   workflow_dispatch:
@@ -74,58 +74,58 @@ jobs:
             exit 1
           fi
 
-      - name: Validate Host.it configuration
+      - name: Validate SiteGround configuration
         env:
-          HOSTIT_HOST: ${{ secrets.HOSTIT_HOST }}
-          HOSTIT_USERNAME: ${{ secrets.HOSTIT_USERNAME }}
-          HOSTIT_PORT: ${{ secrets.HOSTIT_PORT }}
-          HOSTIT_REMOTE_PATH: ${{ secrets.HOSTIT_REMOTE_PATH }}
-          HOSTIT_SSH_KEY: ${{ secrets.HOSTIT_SSH_KEY }}
-          HOSTIT_KNOWN_HOSTS: ${{ secrets.HOSTIT_KNOWN_HOSTS }}
+          SITEGROUND_HOST: ${{ secrets.SITEGROUND_HOST }}
+          SITEGROUND_USERNAME: ${{ secrets.SITEGROUND_USERNAME }}
+          SITEGROUND_PORT: ${{ secrets.SITEGROUND_PORT }}
+          SITEGROUND_REMOTE_PATH: ${{ secrets.SITEGROUND_REMOTE_PATH }}
+          SITEGROUND_SSH_KEY: ${{ secrets.SITEGROUND_SSH_KEY }}
+          SITEGROUND_KNOWN_HOSTS: ${{ secrets.SITEGROUND_KNOWN_HOSTS }}
         run: |
-          for variable in HOSTIT_HOST HOSTIT_USERNAME HOSTIT_PORT HOSTIT_REMOTE_PATH HOSTIT_SSH_KEY HOSTIT_KNOWN_HOSTS; do
+          for variable in SITEGROUND_HOST SITEGROUND_USERNAME SITEGROUND_PORT SITEGROUND_REMOTE_PATH SITEGROUND_SSH_KEY SITEGROUND_KNOWN_HOSTS; do
             if [[ -z "${!variable}" ]]; then
               echo "::error::$variable is not configured."
               exit 1
             fi
           done
-          if [[ ! "$HOSTIT_PORT" =~ ^[0-9]+$ ]]; then
-            echo "::error::HOSTIT_PORT must be numeric."
+          if [[ ! "$SITEGROUND_PORT" =~ ^[0-9]+$ ]]; then
+            echo "::error::SITEGROUND_PORT must be numeric."
             exit 1
           fi
-          if [[ "$HOSTIT_REMOTE_PATH" == *$'\n'* || "$HOSTIT_REMOTE_PATH" == *'"'* ]]; then
-            echo "::error::HOSTIT_REMOTE_PATH contains unsupported characters."
+          if [[ "$SITEGROUND_REMOTE_PATH" == *$'\n'* || "$SITEGROUND_REMOTE_PATH" == *'"'* ]]; then
+            echo "::error::SITEGROUND_REMOTE_PATH contains unsupported characters."
             exit 1
           fi
 
       - name: Configure SSH
         env:
-          HOSTIT_SSH_KEY: ${{ secrets.HOSTIT_SSH_KEY }}
-          HOSTIT_KNOWN_HOSTS: ${{ secrets.HOSTIT_KNOWN_HOSTS }}
+          SITEGROUND_SSH_KEY: ${{ secrets.SITEGROUND_SSH_KEY }}
+          SITEGROUND_KNOWN_HOSTS: ${{ secrets.SITEGROUND_KNOWN_HOSTS }}
         run: |
           install -d -m 700 "$HOME/.ssh"
-          printf '%s\n' "$HOSTIT_SSH_KEY" > "$HOME/.ssh/hostit_deploy_key"
-          printf '%s\n' "$HOSTIT_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/hostit_deploy_key" "$HOME/.ssh/known_hosts"
+          printf '%s\n' "$SITEGROUND_SSH_KEY" > "$HOME/.ssh/siteground_deploy_key"
+          printf '%s\n' "$SITEGROUND_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/siteground_deploy_key" "$HOME/.ssh/known_hosts"
 
       - name: Deploy dist contents via SFTP
         env:
-          HOSTIT_HOST: ${{ secrets.HOSTIT_HOST }}
-          HOSTIT_USERNAME: ${{ secrets.HOSTIT_USERNAME }}
-          HOSTIT_PORT: ${{ secrets.HOSTIT_PORT }}
-          HOSTIT_REMOTE_PATH: ${{ secrets.HOSTIT_REMOTE_PATH }}
+          SITEGROUND_HOST: ${{ secrets.SITEGROUND_HOST }}
+          SITEGROUND_USERNAME: ${{ secrets.SITEGROUND_USERNAME }}
+          SITEGROUND_PORT: ${{ secrets.SITEGROUND_PORT }}
+          SITEGROUND_REMOTE_PATH: ${{ secrets.SITEGROUND_REMOTE_PATH }}
         run: |
           {
-            printf 'cd "%s"\n' "$HOSTIT_REMOTE_PATH"
+            printf 'cd "%s"\n' "$SITEGROUND_REMOTE_PATH"
             printf 'lcd dist\n'
             printf 'put .htaccess\n'
             printf 'put -r *\n'
-          } > "$RUNNER_TEMP/hostit-deploy.sftp"
+          } > "$RUNNER_TEMP/siteground-deploy.sftp"
           sftp \
-            -b "$RUNNER_TEMP/hostit-deploy.sftp" \
-            -i "$HOME/.ssh/hostit_deploy_key" \
-            -P "$HOSTIT_PORT" \
+            -b "$RUNNER_TEMP/siteground-deploy.sftp" \
+            -i "$HOME/.ssh/siteground_deploy_key" \
+            -P "$SITEGROUND_PORT" \
             -o BatchMode=yes \
             -o ConnectTimeout=15 \
             -o StrictHostKeyChecking=yes \
-            "$HOSTIT_USERNAME@$HOSTIT_HOST"
+            "$SITEGROUND_USERNAME@$SITEGROUND_HOST"

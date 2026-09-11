@@ -6,7 +6,7 @@ import { ManagementAuthProvider } from './management/AuthContext'
 import { ManagementGuard } from './management/ManagementGuard'
 import { ManagementLayout } from './management/ManagementLayout'
 
-const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })))
+const MaintenancePage = lazy(() => import('./pages/MaintenancePage').then((module) => ({ default: module.MaintenancePage })))
 const ContactPage = lazy(() => import('./pages/ContactPage').then((module) => ({ default: module.ContactPage })))
 const CompanyPage = lazy(() => import('./pages/CompanyPage').then((module) => ({ default: module.CompanyPage })))
 const TechnologyPage = lazy(() => import('./pages/TechnologyPage').then((module) => ({ default: module.TechnologyPage })))
@@ -18,25 +18,14 @@ const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage').then((mod
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })))
 const ManagementLoginPage = lazy(() => import('./management/ManagementLoginPage').then((module) => ({ default: module.ManagementLoginPage })))
 const ManagementDashboardPage = lazy(() => import('./management/ManagementDashboardPage').then((module) => ({ default: module.ManagementDashboardPage })))
-const ManagementClientsPage = lazy(() => import('./management/ManagementClientsPage').then((module) => ({ default: module.ManagementClientsPage })))
-const ManagementDocumentsPage = lazy(() => import('./management/ManagementDocumentsPage').then((module) => ({ default: module.ManagementDocumentsPage })))
-const ManagementDocumentEditorPage = lazy(() => import('./management/ManagementDocumentEditorPage').then((module) => ({ default: module.ManagementDocumentEditorPage })))
 const ManagementResourcesPage = lazy(() => import('./management/ManagementResourcesPage').then((module) => ({ default: module.ManagementResourcesPage })))
-const ManagementClientDetailPage = lazy(() => import('./management/ManagementClientDetailPage').then((module) => ({ default: module.ManagementClientDetailPage })))
-const ManagementDeadlinesPage = lazy(() => import('./management/ManagementDeadlinesPage').then((module) => ({ default: module.ManagementDeadlinesPage })))
 const ManagementSettingsPage = lazy(() => import('./management/ManagementSettingsPage').then((module) => ({ default: module.ManagementSettingsPage })))
 const ManagementWarrantiesPage = lazy(() => import('./management/ManagementWarrantiesPage').then((module) => ({ default: module.ManagementWarrantiesPage })))
 const ManagementInventoryPage = lazy(() => import('./management/ManagementInventoryPage').then((module) => ({ default: module.ManagementInventoryPage })))
 const ManagementSuppliersPage = lazy(() => import('./management/ManagementSuppliersPage').then((module) => ({ default: module.ManagementSuppliersPage })))
-const ManagementProjectsPage = lazy(() => import('./management/ManagementProjectsPage').then((module) => ({ default: module.ManagementProjectsPage })))
-const ManagementAccountingPage = lazy(() => import('./management/ManagementAccountingPage').then((module) => ({ default: module.ManagementAccountingPage })))
-const ManagementReceivablesPage = lazy(() => import('./management/ManagementReceivablesPage').then((module) => ({ default: module.ManagementReceivablesPage })))
-const ManagementPurchasingPage = lazy(() => import('./management/ManagementPurchasingPage').then((module) => ({ default: module.ManagementPurchasingPage })))
 const ManagementSecurityPage = lazy(() => import('./management/ManagementSecurityPage').then((module) => ({ default: module.ManagementSecurityPage })))
 const ManagementMfaPage = lazy(() => import('./management/ManagementMfaPage').then((module) => ({ default: module.ManagementMfaPage })))
-const ManagementElectronicInvoicesPage = lazy(() => import('./management/ManagementElectronicInvoicesPage').then((module) => ({ default: module.ManagementElectronicInvoicesPage })))
 const ManagementCatalogPage = lazy(() => import('./management/ManagementCatalogPage').then((module) => ({ default: module.ManagementCatalogPage })))
-const ManagementFieldOperationsPage = lazy(() => import('./management/ManagementFieldOperationsPage').then((module) => ({ default: module.ManagementFieldOperationsPage })))
 const ManagementStockControlPage = lazy(() => import('./management/ManagementStockControlPage').then((module) => ({ default: module.ManagementStockControlPage })))
 const ManagementControlCenterPage = lazy(() => import('./management/ManagementControlCenterPage').then((module) => ({ default: module.ManagementControlCenterPage })))
 
@@ -50,35 +39,19 @@ export default function App() {
           <Route element={<ManagementGuard />}>
             <Route path="/gestionale" element={<ManagementLayout />}>
               <Route index element={<ManagementDashboardPage />} />
-              <Route path="clienti" element={<ManagementClientsPage />} />
-              <Route path="clienti/:clientId" element={<ManagementClientDetailPage />} />
               <Route path="fornitori" element={<ManagementSuppliersPage />} />
-              <Route path="commesse" element={<ManagementProjectsPage />} />
-              <Route path="contabilita" element={<ManagementAccountingPage />} />
-              <Route path="incassi" element={<ManagementReceivablesPage />} />
-              <Route path="acquisti" element={<ManagementPurchasingPage />} />
-              <Route path="importa-fatture-passive" element={<ManagementElectronicInvoicesPage />} />
-              <Route path="fatturapa" element={<Navigate to="/gestionale/documenti/proforma" replace />} />
               <Route path="listino" element={<ManagementCatalogPage />} />
-              <Route path="operativita" element={<ManagementFieldOperationsPage />} />
               <Route path="scorte" element={<ManagementStockControlPage />} />
               <Route path="controllo" element={<ManagementControlCenterPage />} />
               <Route path="sicurezza" element={<ManagementSecurityPage />} />
-              <Route path="scadenziario" element={<ManagementDeadlinesPage />} />
               <Route path="schede-certificazioni" element={<ManagementResourcesPage />} />
               <Route path="garanzie" element={<ManagementWarrantiesPage />} />
               <Route path="magazzino" element={<ManagementInventoryPage />} />
               <Route path="impostazioni" element={<ManagementSettingsPage />} />
-              <Route path="documenti" element={<ManagementDocumentsPage />} />
-              <Route path="documenti/preventivi" element={<ManagementDocumentsPage documentType="quote" />} />
-              <Route path="documenti/proforma" element={<ManagementDocumentsPage documentType="proforma" />} />
-              <Route path="documenti/fatture" element={<Navigate to="/gestionale/documenti/proforma" replace />} />
-              <Route path="documenti/nuovo" element={<ManagementDocumentEditorPage />} />
-              <Route path="documenti/:documentId" element={<ManagementDocumentEditorPage />} />
             </Route>
           </Route>
+          <Route index element={<MaintenancePage />} />
           <Route element={<SiteLayout />}>
-            <Route index element={<HomePage />} />
             <Route path="/contatti" element={<ContactPage />} />
             <Route path="/azienda" element={<CompanyPage />} />
             <Route path="/tecnologia" element={<TechnologyPage />} />
