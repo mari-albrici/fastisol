@@ -532,6 +532,82 @@
   .management-content { padding: 2rem 2rem 5rem; }
 }
 
+/* Unified materials workspace */
+.management-materials-page { --materials-ink: #183746; --materials-muted: #6e8089; }
+.management-materials-page .management-page-heading { margin-bottom: 1.75rem; }
+.management-materials-page .management-page-heading h1 { letter-spacing: -.035em; }
+.management-materials-page .management-page-heading p { max-width: 620px; }
+.management-materials-page .management-stats { gap: .75rem; margin-bottom: 1.5rem; }
+.management-materials-page .management-stats article { min-height: 112px; border-color: #e1e9ed; box-shadow: 0 10px 30px rgba(24,55,70,.045); }
+.management-materials-page .management-stats article > strong { font-size: 1.55rem; }
+.management-materials-page .management-card,
+.management-materials-panel { border-radius: .7rem; box-shadow: 0 14px 36px rgba(24,55,70,.055); }
+.management-materials-panel--warranties { overflow: visible; }
+.management-materials-page > .management-card > .management-tabs--card,
+.management-materials-panel > .management-tabs--card { padding: .65rem; border: 0; background: #edf3f5; }
+.management-materials-page .management-tabs--card { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .4rem; overflow: visible; }
+.management-materials-page .management-tabs--card button { min-height: 44px; padding: .65rem .8rem; color: #637781; border: 0; border-radius: .45rem; background: transparent; font-size: .76rem; letter-spacing: .01em; transition: color 160ms ease, background 160ms ease, box-shadow 160ms ease; }
+.management-materials-page .management-tabs--card button:hover { color: var(--color-primary); border: 0; background: rgba(255,255,255,.72); }
+.management-materials-page .management-tabs--card button.is-active { color: #fff; background: var(--color-primary); box-shadow: 0 6px 14px rgba(7,59,92,.18); }
+.management-materials-page .management-table th { background: #f5f8f9; }
+.management-materials-page .management-table td { padding-top: 1.05rem; padding-bottom: 1.05rem; }
+.management-materials-page .management-table tbody tr:hover { background: #f7fbfc; }
+.management-materials-page .management-empty { min-height: 230px; }
+.management-materials-warranties-content { overflow: hidden; }
+.management-materials-warranties-content .management-toolbar { border-top: 1px solid #e5ecef; }
+.management-materials-warranties-content .management-toolbar .management-primary-button { margin-left: auto; }
+.management-materials-panel--warranties > div > .management-page-heading { padding: 1.5rem 1.5rem 0; margin-bottom: 1.25rem; }
+.management-materials-panel--warranties > div > .management-card { border-radius: 0; box-shadow: none; }
+.management-materials-panel--warranties > div > .management-card .management-toolbar { border-top: 1px solid #e5ecef; }
+
+@media (max-width: 700px) {
+  .management-materials-page .management-tabs--card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .management-materials-panel--warranties > div > .management-page-heading { padding: 1.25rem 1rem 0; }
+}
+
+/* Management home */
+.management-dashboard-page .management-page-heading { margin-bottom: 1.15rem; }
+.management-dashboard-page .management-page-heading > div:first-child > span { color: var(--color-secondary-dark, #6b8c0d); }
+.management-dashboard-page .management-page-heading h1 { font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.055em; }
+.management-dashboard-page .management-page-heading p { max-width: 560px; font-size: 1rem; }
+.management-dashboard-hero { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 190px; margin-bottom: 2rem; padding: 2rem clamp(1.25rem, 4vw, 3rem); overflow: hidden; color: #fff; border-radius: .75rem; background: linear-gradient(120deg, #083e63 0%, #106ba7 70%, #2b83b9 100%); box-shadow: 0 18px 42px rgba(8,62,99,.18); }
+.management-dashboard-hero__eyebrow { color: #c9df70; font-size: .7rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.management-dashboard-hero h1 { margin-top: .4rem; color: #fff; font-size: clamp(2rem, 5vw, 3.3rem); letter-spacing: -.06em; }
+.management-dashboard-hero p { max-width: 560px; margin-top: .55rem; color: rgba(255,255,255,.76); font-size: .95rem; }
+.management-dashboard-hero__mark { display: grid; width: 92px; height: 92px; flex: 0 0 auto; place-items: center; color: #c9df70; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; background: rgba(255,255,255,.1); }
+.management-dashboard-section { margin-top: 1.25rem; }
+.management-dashboard-section__heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: .85rem; }
+.management-dashboard-section__heading span { color: var(--color-primary); font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.management-dashboard-section__heading h2 { margin-top: .2rem; color: #183746; font-size: 1.35rem; letter-spacing: -.035em; }
+.management-dashboard-section__heading small { color: #788990; font-size: .75rem; }
+.management-dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; margin-bottom: 1.5rem; }
+.management-dashboard-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; min-height: 128px; padding: 1.15rem; border: 1px solid #dce6eb; border-radius: .65rem; background: #fff; box-shadow: 0 8px 26px rgba(22,61,83,.045); transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+.management-dashboard-card:hover { transform: translateY(-2px); border-color: #b7cbd5; box-shadow: 0 15px 34px rgba(22,61,83,.1); }
+.management-dashboard-card__icon { display: grid; width: 48px; height: 48px; place-items: center; border-radius: .55rem; }
+.management-dashboard-card__body { display: grid; gap: .3rem; min-width: 0; }
+.management-dashboard-card__body strong { color: #183746; font-family: var(--font-heading); font-size: .98rem; }
+.management-dashboard-card__body span { color: #71828b; font-size: .78rem; line-height: 1.45; }
+.management-dashboard-card__arrow { color: #8a9aa2; transition: transform 160ms ease; }
+.management-dashboard-card:hover .management-dashboard-card__arrow { color: var(--color-primary); transform: translateX(3px); }
+.management-dashboard-card.tone-blue .management-dashboard-card__icon { color: #17618a; background: #e5f2f9; }
+.management-dashboard-card.tone-green .management-dashboard-card__icon { color: #3d713f; background: #e9f5e9; }
+.management-dashboard-card.tone-amber .management-dashboard-card__icon { color: #916b1c; background: #fff4d9; }
+.management-dashboard-card.tone-red .management-dashboard-card__icon { color: #994b45; background: #fae9e7; }
+.management-dashboard-note { display: flex; align-items: center; gap: .85rem; padding: 1rem 1.1rem; border: 1px solid #dce6eb; border-radius: .55rem; background: #f8fbfc; }
+.management-dashboard-note__icon { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; color: var(--color-primary); border-radius: 50%; background: #e5f2f9; }
+.management-dashboard-note > div:nth-child(2) { min-width: 0; }
+.management-dashboard-note strong { color: #294957; font-size: .82rem; }
+.management-dashboard-note p { margin-top: .15rem; color: #71828b; font-size: .75rem; }
+.management-dashboard-note a { margin-left: auto; flex: 0 0 auto; color: var(--color-primary); font-size: .76rem; font-weight: 800; }
+
+@media (max-width: 700px) {
+  .management-dashboard-hero { min-height: 165px; padding: 1.35rem; }
+  .management-dashboard-hero__mark { width: 62px; height: 62px; }
+  .management-dashboard-grid { grid-template-columns: 1fr; }
+  .management-dashboard-note { align-items: flex-start; flex-wrap: wrap; }
+  .management-dashboard-note a { margin-left: 3.1rem; }
+}
+
 @media (min-width: 1280px) {
   .document-editor__layout { grid-template-columns: minmax(560px, 1fr) minmax(420px, .72fr); }
   .document-preview-wrap { position: sticky; top: 1.5rem; }

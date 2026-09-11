@@ -336,6 +336,8 @@ export interface PurchaseDocument {
   file_path: string | null
   file_type: string | null
   file_size: number | null
+  stock_applied: boolean
+  stock_consumption_id: string | null
   suppliers?: Pick<Supplier, 'company_name' | 'contact_name'> | null
   projects?: Pick<Project, 'code' | 'name'> | null
 }
@@ -378,7 +380,7 @@ export interface PurchaseOrder {
 
 export interface DeliveryNoteItem { id?: string; material_name: string; lot_number: string; drum_count: number; drum_weight_kg: number; inventory_lot_id?: string | null; position: number }
 export interface DeliveryNote {
-  id: string; supplier_id: string; purchase_order_id: string | null; project_id: string | null; number: string; delivery_date: string; notes: string;
+  id: string; supplier_id: string; purchase_order_id: string | null; project_id: string | null; number: string; delivery_date: string; notes: string; file_name?: string | null; file_path?: string | null; file_type?: string | null; file_size?: number | null;
   suppliers?: Pick<Supplier, 'company_name' | 'contact_name'> | null; projects?: Pick<Project, 'code' | 'name'> | null; delivery_note_items?: DeliveryNoteItem[]
 }
 
@@ -395,6 +397,77 @@ export type ElectronicInvoiceStatus = 'not_sent'|'exported'|'sent'|'delivered'|'
 export interface ElectronicInvoiceEvent { id: string; document_id: string; status: Exclude<ElectronicInvoiceStatus,'not_sent'>; sdi_id: string; event_at: string; reason: string; file_name: string|null; file_path: string|null; file_type: string|null; file_size: number|null; documents?: Pick<BusinessDocument,'number'|'issue_date'|'total'> & { clients?: Pick<Client,'company_name'|'contact_name'>|null } }
 export interface InventoryMaterialSetting { id: string; material_name: string; supplier_id: string|null; min_drums: number; reorder_drums: number; active: boolean; suppliers?: Pick<Supplier,'company_name'|'contact_name'>|null }
 export interface BackupSnapshot { id: string; label: string; payload: Record<string,unknown>; created_at: string }
+
+export type MaterialLotStatus = 'available' | 'partially_used' | 'exhausted'
+export type MaterialMovementType = 'inbound' | 'consumption' | 'adjustment'
+export type WarrantyArchiveStatus = 'to_create' | 'created_on_supplier_portal' | 'document_to_upload' | 'uploaded' | 'to_verify'
+
+export interface MaterialLot {
+  id: string
+  producer_lot_number: string
+  material_name: string
+  component_a: string
+  component_b: string
+  initial_quantity_kits: number
+  remaining_quantity_kits: number
+  yield_sqm_per_kit: number
+  reference_thickness_cm: number
+  entry_date: string
+  supplier_id: string
+  delivery_note_id: string
+  notes: string
+  status: MaterialLotStatus
+  created_at: string
+  suppliers?: Pick<Supplier, 'company_name' | 'contact_name'> | null
+  delivery_notes?: Pick<DeliveryNote, 'number' | 'delivery_date' | 'file_name' | 'file_path'> | null
+}
+
+export interface MaterialConsumption {
+  id: string
+  client_id: string
+  project_id: string
+  application_date: string
+  declared_sqm: number
+  kits_consumed: number
+  reference_thickness_cm: number
+  notes: string
+  created_at: string
+  clients?: Pick<Client, 'company_name' | 'contact_name'> | null
+  projects?: Pick<Project, 'code' | 'name'> | null
+  material_consumption_lots?: Array<{ quantity_kits: number; material_lot_id: string; material_lots?: Pick<MaterialLot, 'producer_lot_number'> | null }>
+}
+
+export interface WarrantyArchive {
+  id: string
+  client_id: string
+  project_id: string
+  consumption_id: string | null
+  material_name: string
+  quantity_text: string
+  lot_number: string
+  warranty_number: string
+  issue_date: string | null
+  expiry_date: string | null
+  supplier_name: string
+  status: WarrantyArchiveStatus
+  file_name: string | null
+  file_path: string | null
+  file_type: string | null
+  file_size: number | null
+  notes: string
+  created_at: string
+  updated_at: string
+  clients?: Pick<Client, 'company_name' | 'contact_name'> | null
+  projects?: Pick<Project, 'code' | 'name'> | null
+}
+
+export const warrantyArchiveStatusLabels: Record<WarrantyArchiveStatus, string> = {
+  to_create: 'Da creare sul portale fornitore',
+  created_on_supplier_portal: 'Creata sul portale',
+  document_to_upload: 'Documento da caricare',
+  uploaded: 'Garanzia archiviata',
+  to_verify: 'Da verificare',
+}
 
 export const resourceCategoryLabels: Record<ResourceCategory, string> = {
   technical_sheet: 'Scheda tecnica',

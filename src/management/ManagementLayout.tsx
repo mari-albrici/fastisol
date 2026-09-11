@@ -12,17 +12,14 @@ const navGroups: Array<{ label?: string; items: NavItem[] }> = [
     { to: '/gestionale/fornitori', label: 'Fornitori', icon: 'truck' },
   ] },
   { label: 'Operatività', items: [
-    { to: '/gestionale/garanzie', label: 'Garanzie', icon: 'shield' },
+    { to: '/gestionale/garanzie', label: 'Garanzie PDF', icon: 'shield' },
   ] },
   { label: 'Magazzino', items: [
-    { to: '/gestionale/magazzino', label: 'Lotti e barili', icon: 'warehouse' },
-    { to: '/gestionale/scorte', label: 'Scorte e tracciabilità', icon: 'warehouse' },
-    { to: '/gestionale/listino', label: 'Listino', icon: 'note' },
+    { to: '/gestionale/materiali', label: 'Materiali e scorte', icon: 'warehouse' },
   ] },
   { label: 'Archivio e sistema', items: [
     { to: '/gestionale/schede-certificazioni', label: 'Schede e certificazioni', icon: 'folder' },
     { to: '/gestionale/controllo', label: 'Ricerca e controlli', icon: 'search' },
-    { to: '/gestionale/impostazioni', label: 'Impostazioni', icon: 'settings' },
     { to: '/gestionale/sicurezza', label: 'Sicurezza e backup', icon: 'shield' },
   ] },
 ]
