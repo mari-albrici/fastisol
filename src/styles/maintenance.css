@@ -23,17 +23,19 @@
   position: relative;
   display: flex;
   width: min(calc(100% - 2rem), 1080px);
-  height: 100%;
+  min-height: 100dvh;
   flex-direction: column;
   justify-content: center;
   padding-block: clamp(1.25rem, 2.5vh, 3rem);
 }
 
 .maintenance-page__logo {
-  width: min(180px, 52vw);
+  display: block;
+  width: clamp(130px, 42vw, 180px);
   max-width: 100%;
   height: auto;
   aspect-ratio: 300 / 80;
+  flex-shrink: 0;
   align-self: flex-start;
   object-fit: contain;
   margin-bottom: clamp(2rem, 6vh, 5rem);
@@ -126,12 +128,13 @@
   }
 
   .maintenance-page__inner {
+    min-height: 100dvh;
     justify-content: flex-start;
     padding-block: 1.5rem 2rem;
   }
 
   .maintenance-page__logo {
-    width: min(180px, 62vw);
+    width: clamp(120px, 52vw, 170px);
     margin-bottom: 2.5rem;
   }
 
