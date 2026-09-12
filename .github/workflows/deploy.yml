@@ -78,12 +78,11 @@ jobs:
         env:
           SITEGROUND_HOST: ${{ secrets.SITEGROUND_HOST }}
           SITEGROUND_USERNAME: ${{ secrets.SITEGROUND_USERNAME }}
+          SITEGROUND_PASSWORD: ${{ secrets.SITEGROUND_PASSWORD }}
           SITEGROUND_PORT: ${{ secrets.SITEGROUND_PORT }}
           SITEGROUND_REMOTE_PATH: ${{ secrets.SITEGROUND_REMOTE_PATH }}
-          SITEGROUND_SSH_KEY: ${{ secrets.SITEGROUND_SSH_KEY }}
-          SITEGROUND_KNOWN_HOSTS: ${{ secrets.SITEGROUND_KNOWN_HOSTS }}
         run: |
-          for variable in SITEGROUND_HOST SITEGROUND_USERNAME SITEGROUND_PORT SITEGROUND_REMOTE_PATH SITEGROUND_SSH_KEY SITEGROUND_KNOWN_HOSTS; do
+          for variable in SITEGROUND_HOST SITEGROUND_USERNAME SITEGROUND_PASSWORD SITEGROUND_PORT SITEGROUND_REMOTE_PATH; do
             if [[ -z "${!variable}" ]]; then
               echo "::error::$variable is not configured."
               exit 1
@@ -98,34 +97,18 @@ jobs:
             exit 1
           fi
 
-      - name: Configure SSH
-        env:
-          SITEGROUND_SSH_KEY: ${{ secrets.SITEGROUND_SSH_KEY }}
-          SITEGROUND_KNOWN_HOSTS: ${{ secrets.SITEGROUND_KNOWN_HOSTS }}
-        run: |
-          install -d -m 700 "$HOME/.ssh"
-          printf '%s\n' "$SITEGROUND_SSH_KEY" > "$HOME/.ssh/siteground_deploy_key"
-          printf '%s\n' "$SITEGROUND_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/siteground_deploy_key" "$HOME/.ssh/known_hosts"
+      - name: Install FTP client
+        run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Deploy dist contents via SFTP
+      - name: Deploy dist contents via FTPS
         env:
           SITEGROUND_HOST: ${{ secrets.SITEGROUND_HOST }}
           SITEGROUND_USERNAME: ${{ secrets.SITEGROUND_USERNAME }}
+          SITEGROUND_PASSWORD: ${{ secrets.SITEGROUND_PASSWORD }}
           SITEGROUND_PORT: ${{ secrets.SITEGROUND_PORT }}
           SITEGROUND_REMOTE_PATH: ${{ secrets.SITEGROUND_REMOTE_PATH }}
         run: |
-          {
-            printf 'cd "%s"\n' "$SITEGROUND_REMOTE_PATH"
-            printf 'lcd dist\n'
-            printf 'put .htaccess\n'
-            printf 'put -r *\n'
-          } > "$RUNNER_TEMP/siteground-deploy.sftp"
-          sftp \
-            -b "$RUNNER_TEMP/siteground-deploy.sftp" \
-            -i "$HOME/.ssh/siteground_deploy_key" \
-            -P "$SITEGROUND_PORT" \
-            -o BatchMode=yes \
-            -o ConnectTimeout=15 \
-            -o StrictHostKeyChecking=yes \
-            "$SITEGROUND_USERNAME@$SITEGROUND_HOST"
+          lftp \
+            -u "$SITEGROUND_USERNAME","$SITEGROUND_PASSWORD" \
+            -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set net:timeout 15; set net:max-retries 2; mirror -R --verbose dist $SITEGROUND_REMOTE_PATH; bye" \
+            "ftp://$SITEGROUND_HOST:$SITEGROUND_PORT"
