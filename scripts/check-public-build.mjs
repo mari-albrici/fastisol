@@ -53,7 +53,7 @@ async function walk(directory) {
 }
 
 const expectedRoutes = [...prerenderPublicRoutes]
-if (expectedRoutes.length !== 9) fail(`Attese 9 pagine pubbliche, configurate ${expectedRoutes.length}.`)
+if (expectedRoutes.length !== 1) fail(`Attesa 1 pagina pubblica, configurate ${expectedRoutes.length}.`)
 if (new Set(expectedRoutes).size !== expectedRoutes.length) fail('La configurazione contiene route pubbliche duplicate.')
 
 const pageBodies = new Map()
