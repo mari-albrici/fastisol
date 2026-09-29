@@ -10,7 +10,7 @@ export const faqs: Faq[] = [
   {
     question: 'Quanto dura l’intervento?',
     answer:
-      'Molti lavori su tetti e sottotetti possono essere eseguiti rapidamente e, in condizioni adatte, anche nell’arco di una giornata lavorativa. Dimensioni, accessibilità, preparazione e finiture determinano i tempi reali, che vengono indicati nel preventivo.',
+      'In condizioni favorevoli, una copertura di circa 100–150 m² può essere trattata nell’arco di una giornata di lavoro. È un riferimento indicativo: i tempi reali dipendono dalle caratteristiche dell’edificio, dall’accessibilità del sottotetto, dalla superficie, dalla preparazione e dalle finiture previste.',
     category: 'intervento',
   },
   {
@@ -28,7 +28,7 @@ export const faqs: Faq[] = [
   {
     question: 'Come si valuta un problema di condensa?',
     answer:
-      'La condensa non va trattata con una risposta standard. È necessario considerare stratigrafia, ventilazione, temperatura, umidità e uso degli ambienti. Fastisol valuta il caso prima di indicare se e come l’isolamento possa contribuire alla soluzione.',
+      'Superfici fredde e scarsa coibentazione possono favorire la condensa, soprattutto se l’umidità interna non è gestita correttamente. Isolare soletta o copertura può contribuire a migliorare il comfort, ma infiltrazioni, perdite, risalita e problemi di impermeabilizzazione richiedono prima l’individuazione e la risoluzione della causa, anche con uno specialista del risanamento.',
     category: 'tecnologia',
   },
 ]

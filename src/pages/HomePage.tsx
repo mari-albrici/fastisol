@@ -7,7 +7,7 @@ import { SolutionsSection } from '../components/sections/SolutionsSection'
 import { TechnologySection } from '../components/sections/TechnologySection'
 import { TrustSection } from '../components/sections/TrustSection'
 import { Seo } from '../components/layout/Seo'
-import { company, formattedAddress } from '../data/company'
+import { company } from '../data/company'
 import { faqs } from '../data/faqs'
 
 const homeStructuredData = [
@@ -46,8 +46,8 @@ export function HomePage() {
   return (
     <>
       <Seo
-        title="Fastisol | Isolamento termico di tetti e sottotetti"
-        description={`Fastisol isola tetti, sottotetti e coperture con applicazione professionale a spruzzo. Valutazioni e preventivi da ${formattedAddress}.`}
+        title="Fastisol | Isolamento in schiuma a spruzzo"
+        description="Da oltre 10 anni isoliamo sottotetti, coperture e ambienti industriali con sistemi Icynene di Huntsman Building Solutions. Richiedi una valutazione."
         structuredData={homeStructuredData}
       />
       <HomeHero />

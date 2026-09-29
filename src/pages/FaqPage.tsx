@@ -7,6 +7,15 @@ import { faqs } from '../data/faqs'
 const faqPageStructuredData = [
   {
     '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: 'Domande frequenti sull’isolamento termico',
     url: `${company.websiteUrl}/faq`,
@@ -28,7 +37,7 @@ export function FaqPage() {
     <>
       <Seo
         title="Domande frequenti sull’isolamento termico"
-        description="Risposte su isolamento di tetti e sottotetti, schiuma a spruzzo, condensa, tempi di intervento e preparazione del preventivo Fastisol."
+        description="Quanto dura la posa e come si valuta la condensa? Le risposte Fastisol su schiuma a spruzzo, superfici irregolari e richiesta di preventivo."
         structuredData={faqPageStructuredData}
       />
 

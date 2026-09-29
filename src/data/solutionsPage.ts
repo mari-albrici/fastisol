@@ -8,6 +8,7 @@ export interface SolutionCategory {
   description: string
   idealFor: string
   icon: IconName
+  detailHref?: string
 }
 
 export const solutionCategories: SolutionCategory[] = [
@@ -31,6 +32,7 @@ export const solutionCategories: SolutionCategory[] = [
   },
   {
     id: 'soluzione-muricci-e-tavelloni',
+    detailHref: '/soluzioni#geometrie-e-accessi',
     title: 'Sottotetto con muricci e tavelloni',
     shortTitle: 'Muricci e tavelloni',
     problem: 'Il vano è basso, frammentato e difficile da raggiungere con pannelli.',
@@ -58,6 +60,7 @@ export const solutionCategories: SolutionCategory[] = [
   },
   {
     id: 'soluzione-isolamento-interno',
+    detailHref: '/soluzioni#isolamento-senza-cappotto',
     title: 'Isolamento interno di pareti e soffitti',
     shortTitle: 'Pareti e soffitti',
     problem: 'Non è possibile intervenire sulla facciata o sul lato esterno.',
@@ -67,6 +70,7 @@ export const solutionCategories: SolutionCategory[] = [
   },
   {
     id: 'soluzione-edifici-industriali',
+    detailHref: '/soluzioni#capannoni-e-spazi-commerciali',
     title: 'Isolamento di coperture industriali',
     shortTitle: 'Edifici industriali',
     problem: 'Grandi superfici, caldo, freddo o condensa rendono difficile usare il fabbricato.',
@@ -76,6 +80,7 @@ export const solutionCategories: SolutionCategory[] = [
   },
   {
     id: 'soluzione-condensa',
+    detailHref: '/soluzioni#muffa-e-umidita',
     title: 'Analisi dei problemi di condensa',
     shortTitle: 'Condensa',
     problem: 'Compaiono gocce, macchie o muffa e non è chiara la causa.',
@@ -127,7 +132,7 @@ export const solutionsFaqs = [
   },
   {
     question: 'Come si sceglie lo spessore dell’isolamento?',
-    answer: 'Lo spessore non si sceglie con una misura standard. Occorre considerare zona climatica, struttura esistente, prestazione del prodotto, obiettivo energetico e verifiche igrometriche.',
+    answer: 'Lo spessore dipende dalla struttura, dalla destinazione d’uso, dalla stratigrafia esistente e dagli obiettivi di isolamento. Serve spazio sufficiente per la posa: come riferimento operativo, sotto i 12 cm questo sistema può non essere tecnicamente o economicamente conveniente. Non è una misura valida per ogni edificio; la scelta richiede una valutazione del caso.',
   },
   {
     question: 'La schiuma a spruzzo è adatta a qualsiasi edificio?',

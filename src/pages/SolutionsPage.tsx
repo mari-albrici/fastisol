@@ -87,7 +87,7 @@ export function SolutionsPage() {
     <div className="solutions-page">
       <Seo
         title="Isolamento tetto e sottotetto: soluzioni | Fastisol"
-        description="Soluzioni per isolare sottotetti, tetti in legno o cemento, pareti e coperture industriali. Scopri dove intervenire e richiedi una valutazione."
+        description="Isolamento di sottotetti, mansarde e capannoni: dove intervenire, quando valutare alternative al cappotto e come affrontare condensa e umidità."
         structuredData={solutionsStructuredData}
       />
 
@@ -95,7 +95,7 @@ export function SolutionsPage() {
         <div className="container solutions-hero__inner">
           <div className="solutions-hero__copy">
             <p className="eyebrow">Soluzioni di isolamento termico</p>
-            <h1>Non si isola “un tetto”. Si isola il punto giusto del tuo edificio.</h1>
+            <h1>Isolamento di sottotetti e coperture: dove intervenire.</h1>
             <p className="solutions-hero__lead">
               Tetto, sottotetto e soletta non sono la stessa cosa. Partiamo dall’uso degli spazi e dalla struttura per capire dove intervenire, con quale ciclo e con quale finitura.
             </p>
@@ -153,7 +153,7 @@ export function SolutionsPage() {
                 <h3>{solution.shortTitle}</h3>
                 <p>{solution.description}</p>
                 <div className="solution-tile__ideal"><strong>Indicata per</strong><span>{solution.idealFor}</span></div>
-                <Link className="solution-tile__link" to="/preventivo">Valuta questa soluzione <Icon name="arrow" size={18} /></Link>
+                <Link className="solution-tile__link" to={solution.detailHref ?? '/preventivo'}>{solution.detailHref ? 'Approfondisci' : 'Valuta questa soluzione'} <Icon name="arrow" size={18} /></Link>
               </article>
             ))}
           </div>
@@ -177,7 +177,7 @@ export function SolutionsPage() {
               </div>
               <p className="roof-or-attic__label">Volume non utilizzato</p>
               <h3>Isolare la soletta del sottotetto</h3>
-              <p>Il vano resta fuori dalla zona riscaldata. È una configurazione da valutare quando il sottotetto non è abitato e viene usato soltanto occasionalmente.</p>
+              <p>Quando il sottotetto non è abitabile, la coibentazione della soletta permette di intervenire senza modificare gli ambienti abitati sottostanti. Il vano resta fuori dalla zona riscaldata. Se necessario, si può invece valutare la parte interna della copertura, prevedendo le finiture successive, come un controsoffitto.</p>
               <ul>
                 <li><Icon name="check" size={17} /> Minore volume da mantenere caldo o fresco</li>
                 <li><Icon name="check" size={17} /> Possibilità di prevedere passerelle tecniche</li>
@@ -190,14 +190,76 @@ export function SolutionsPage() {
                 <i className="roof-or-attic__roof" /><i className="roof-or-attic__floor" /><i className="roof-or-attic__insulation" />
               </div>
               <p className="roof-or-attic__label">Volume abitato o utilizzato</p>
-              <h3>Isolare le falde del tetto</h3>
-              <p>Lo spazio sotto la copertura entra nella zona da proteggere. È il caso di mansarde, sottotetti recuperati o locali usati con continuità.</p>
+              <h3>Isolare il tetto della mansarda</h3>
+              <p>Una mansarda può essere abitabile ma poco confortevole, con caldo in estate e dispersioni termiche in inverno. Intervenire dall’interno della copertura consente di includerla nel volume da proteggere, completando il lavoro con una finitura adatta, ad esempio una controsoffittatura.</p>
               <ul>
                 <li><Icon name="check" size={17} /> Continuità lungo la geometria delle falde</li>
                 <li><Icon name="check" size={17} /> Coordinamento con impianti e finiture interne</li>
               </ul>
               <ButtonLink href="/soluzioni#soluzione-tetto-in-legno" variant="text" showArrow>Isolamento tetto</ButtonLink>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section solutions-intro" id="geometrie-e-accessi">
+        <div className="container solutions-intro__grid">
+          <div>
+            <p className="eyebrow">Geometrie e accessibilità</p>
+            <h2>Muricci, tavelloni e coperture a volta.</h2>
+          </div>
+          <div className="solutions-prose">
+            <p>Muricci, cavità e divisori rendono complessa la posa di pannelli o materiali in rotolo. La schiuma a spruzzo segue la geometria della struttura e raggiunge interstizi e zone difficili da trattare, dopo aver verificato le possibilità di accesso.</p>
+            <p>Anche tetti e controsoffittature a volta, presenti in molti edifici storici e tradizionali, possono beneficiare di uno strato che segue la superficie senza le giunzioni tipiche dei pannelli.</p>
+            <p>Per i sottotetti non accessibili occorre valutare prima come raggiungere l’area di posa. Accessibilità, spazio disponibile, stato della copertura e stratigrafia esistente determinano la fattibilità. Valutiamo anche le coperture esterne, individuando il sistema e le protezioni compatibili con la specifica applicazione.</p>
+            <Link className="solutions-inline-link" to="/tecnologia#cos-e">Come si adatta la schiuma a cellule aperte <Icon name="arrow" size={18} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section solutions-intro" id="isolamento-senza-cappotto">
+        <div className="container solutions-intro__grid">
+          <div>
+            <p className="eyebrow">Interventi mirati</p>
+            <h2>Isolare la casa senza intervenire sulle facciate.</h2>
+          </div>
+          <div className="solutions-prose">
+            <p>Il calore si disperde attraverso tutte le parti dell’involucro. Se non vuoi o non puoi realizzare un cappotto esterno, può essere utile partire dalle condizioni del sottotetto e della copertura. Quando sono poco isolati, un intervento sulla soletta o sul lato interno del tetto può risultare più rapido e meno invasivo rispetto a lavori sull’intera facciata.</p>
+            <h3>Quando si può intervenire sulle pareti</h3>
+            <p>I sistemi Icynene possono essere impiegati anche in determinate stratigrafie verticali. L’applicazione non equivale però alla semplice posa di un cappotto tradizionale: la schiuma non può essere lasciata esposta e richiede finiture e protezioni secondo il progetto, con le lavorazioni edili necessarie.</p>
+            <p>Quando serve, collaboriamo con imprese specializzate nelle opere di finitura. La scelta dell’isolamento dall’interno parte sempre dalla compatibilità con la struttura esistente.</p>
+            <Link className="solutions-inline-link" to="/contatti">Scopri la soluzione più adatta <Icon name="arrow" size={18} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section solutions-intro" id="muffa-e-umidita">
+        <div className="container solutions-intro__grid">
+          <div>
+            <p className="eyebrow">Prima individuare la causa</p>
+            <h2>Muffa e condensa: quando l’isolamento può aiutare.</h2>
+          </div>
+          <div className="solutions-prose">
+            <p>Una scarsa coibentazione e la presenza di superfici fredde possono contribuire alla formazione di condensa e muffa, soprattutto quando l’umidità interna non viene gestita correttamente. In presenza di un sottotetto non isolato, intervenire sulla soletta o sulla copertura può migliorare le condizioni di temperatura e umidità e il comfort degli ambienti sottostanti.</p>
+            <h3>Non tutta l’umidità dipende dall’isolamento</h3>
+            <p>Infiltrazioni d’acqua, perdite, umidità di risalita e problemi di impermeabilizzazione richiedono prima l’individuazione e la risoluzione della causa. Quando necessario, consigliamo di rivolgersi a un professionista specializzato in impermeabilizzazioni e risanamento degli edifici.</p>
+            <Link className="solutions-inline-link" to="/contatti">Parlaci del problema <Icon name="arrow" size={18} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section solutions-intro" id="capannoni-e-spazi-commerciali">
+        <div className="container solutions-intro__grid">
+          <div>
+            <p className="eyebrow">Industriale e commerciale</p>
+            <h2>Isolamento di capannoni e grandi superfici.</h2>
+          </div>
+          <div className="solutions-prose">
+            <p>Capannoni, magazzini, officine, negozi, concessionarie, uffici e strutture commerciali possono presentare ampie superfici e geometrie poco adatte ad alcuni sistemi tradizionali. Fastisol valuta interventi a spruzzo anche negli ambienti destinati alla lavorazione e allo stoccaggio.</p>
+            <h3>Serve sempre un controsoffitto?</h3>
+            <p>In determinate applicazioni è possibile intervenire direttamente sulla copertura o su altre strutture senza realizzare necessariamente un controsoffitto. La superficie può essere trattata e rifinita con pittura o altri sistemi di protezione, mediante lavorazioni eseguite da imprese specializzate e compatibili con il progetto.</p>
+            <p>Questa possibilità è utile dove ridurre l’altezza disponibile o modificare completamente il soffitto non sarebbe conveniente. Prima della posa valutiamo superficie, altezza, accessibilità, stato della copertura e destinazione d’uso.</p>
+            <Link className="solutions-inline-link" to="/contatti">Parlaci del tuo progetto <Icon name="arrow" size={18} /></Link>
           </div>
         </div>
       </section>
