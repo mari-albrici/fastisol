@@ -1,21 +1,11 @@
 import { lazy, Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { SiteLayout } from './components/layout/SiteLayout'
-import { consolidatedPublicRoutes } from './data/publicRoutes'
+import { Route, Routes } from 'react-router-dom'
 import { ManagementAuthProvider } from './management/AuthContext'
 import { ManagementGuard } from './management/ManagementGuard'
 import { ManagementLayout } from './management/ManagementLayout'
 
-const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })))
-const SolutionsPage = lazy(() => import('./pages/SolutionsPage').then((module) => ({ default: module.SolutionsPage })))
-const TechnologyPage = lazy(() => import('./pages/TechnologyPage').then((module) => ({ default: module.TechnologyPage })))
-const CompanyPage = lazy(() => import('./pages/CompanyPage').then((module) => ({ default: module.CompanyPage })))
-const ContactPage = lazy(() => import('./pages/ContactPage').then((module) => ({ default: module.ContactPage })))
-const QuotePage = lazy(() => import('./pages/QuotePage').then((module) => ({ default: module.QuotePage })))
-const FaqPage = lazy(() => import('./pages/FaqPage').then((module) => ({ default: module.FaqPage })))
-const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then((module) => ({ default: module.PrivacyPolicyPage })))
-const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage').then((module) => ({ default: module.CookiePolicyPage })))
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })))
+const MaintenancePage = lazy(() => import('./pages/MaintenancePage').then((module) => ({ default: module.MaintenancePage })))
+const HiddenRoutePage = lazy(() => import('./pages/HiddenRoutePage').then((module) => ({ default: module.HiddenRoutePage })))
 const ManagementLoginPage = lazy(() => import('./management/ManagementLoginPage').then((module) => ({ default: module.ManagementLoginPage })))
 const ManagementDashboardPage = lazy(() => import('./management/ManagementDashboardPage').then((module) => ({ default: module.ManagementDashboardPage })))
 const ManagementResourcesPage = lazy(() => import('./management/ManagementResourcesPage').then((module) => ({ default: module.ManagementResourcesPage })))
@@ -44,21 +34,8 @@ export default function App() {
               <Route path="materiali" element={<ManagementMaterialsPage />} />
             </Route>
           </Route>
-          <Route element={<SiteLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="soluzioni" element={<SolutionsPage />} />
-            <Route path="tecnologia" element={<TechnologyPage />} />
-            <Route path="azienda" element={<CompanyPage />} />
-            <Route path="contatti" element={<ContactPage />} />
-            <Route path="preventivo" element={<QuotePage />} />
-            <Route path="faq" element={<FaqPage />} />
-            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-            <Route path="cookie-policy" element={<CookiePolicyPage />} />
-            {consolidatedPublicRoutes.map((path) => (
-              <Route key={path} path={path} element={<Navigate to={path.startsWith('/soluzioni/') ? '/soluzioni' : '/tecnologia'} replace />} />
-            ))}
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
+          <Route index element={<MaintenancePage />} />
+          <Route path="*" element={<HiddenRoutePage />} />
         </Routes>
       </Suspense>
     </ManagementAuthProvider>
