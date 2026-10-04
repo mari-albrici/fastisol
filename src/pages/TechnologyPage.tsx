@@ -9,11 +9,11 @@ const technologyStructuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
-    headline: 'Schiuma isolante a celle aperte: tecnologia ICYNENE / Huntsman',
+    headline: 'Schiuma a cellule aperte: da Icynene a Huntsman Building Solutions',
     description: 'Guida semplice alla schiuma isolante a celle aperte: funzionamento, differenze, prestazioni, applicazione e documentazione tecnica.',
     mainEntityOfPage: `${company.websiteUrl}/tecnologia`,
     inLanguage: 'it-IT',
-    dateModified: '2026-08-29',
+    dateModified: '2026-09-29',
     author: {
       '@type': 'Organization',
       name: company.name,
@@ -107,7 +107,7 @@ const processSteps = [
 const applicationAreas = [
   {
     title: 'Tetti e falde',
-    text: 'Per intervenire dall’interno tra travi, cambi di pendenza e dettagli difficili da sagomare con pannelli rigidi.',
+    text: 'Per intervenire dall’interno tra travi e cambi di pendenza, anche su tetti a volta e coperture irregolari difficili da seguire con pannelli rigidi.',
     href: '/soluzioni#tetto-o-sottotetto',
   },
   {
@@ -131,8 +131,8 @@ export function TechnologyPage() {
   return (
     <article className="technology-page">
       <Seo
-        title="Schiuma isolante a celle aperte: tecnologia | Fastisol"
-        description="Come funziona l’isolamento a spruzzo con schiuma a celle aperte ICYNENE / Huntsman: vantaggi, limiti, dati tecnici e posa spiegati in modo semplice."
+        title="Schiuma a cellule aperte e tecnologia Icynene | Fastisol"
+        description="Come funziona la schiuma poliuretanica a cellule aperte: espansione, vapore, applicazioni e passaggio da Icynene a Huntsman Building Solutions."
         structuredData={technologyStructuredData}
       />
 
@@ -140,7 +140,7 @@ export function TechnologyPage() {
         <div className="container technology-hero__inner">
           <div className="technology-hero__copy">
             <p className="eyebrow">Tecnologia ICYNENE / Huntsman</p>
-            <h1>Schiuma isolante a celle aperte, spiegata senza parole difficili.</h1>
+            <h1>Come funziona la schiuma a cellule aperte.</h1>
             <p className="technology-hero__lead">
               Si applica a spruzzo, si espande e forma uno strato continuo. Qui trovi cosa significa davvero, quando può essere utile e quali controlli servono prima di scegliere.
             </p>
@@ -168,6 +168,7 @@ export function TechnologyPage() {
           <span>In questa pagina</span>
           <a href="#cos-e">Cos’è</a>
           <a href="#come-funziona">Come funziona</a>
+          <a href="#icynene-huntsman">Icynene e Huntsman</a>
           <a href="#celle-aperte-chiuse">Celle aperte o chiuse</a>
           <a href="#dati-tecnici">Dati tecnici</a>
           <a href="#domande">FAQ</a>
@@ -188,7 +189,7 @@ export function TechnologyPage() {
               L’attrezzatura miscela due componenti e li porta alla pistola di applicazione. A contatto con il supporto la schiuma si espande rapidamente, aderisce e riempie lo spazio disponibile. Il risultato è uno strato senza i tagli e gli accostamenti tipici degli isolanti prefabbricati.
             </p>
             <p>
-              Fastisol utilizza la tecnologia a celle aperte nata con il marchio ICYNENE, oggi parte di Huntsman Building Solutions. La schiuma finita è leggera, elastica e simile, al tatto, a una gommapiuma compatta.
+              Durante l’espansione si formano milioni di piccole celle che non sono completamente chiuse tra loro: da qui il nome “a cellule aperte”. La schiuma poliuretanica finita è leggera e flessibile e raggiunge cavità, interstizi e punti difficili da isolare. Questa struttura consente il passaggio del vapore, da considerare nella progettazione della stratigrafia.
             </p>
           </div>
         </div>
@@ -222,6 +223,23 @@ export function TechnologyPage() {
         </div>
       </section>
 
+      <section className="section technology-intro" id="icynene-huntsman">
+        <div className="container technology-intro__grid">
+          <div>
+            <p className="eyebrow">La tecnologia utilizzata da Fastisol</p>
+            <h2>Da Icynene a Huntsman Building Solutions.</h2>
+          </div>
+          <div className="technology-prose">
+            <p>Chi conosce Fastisol da tempo conosce anche Icynene, per anni una delle nostre tecnologie di riferimento. Oggi il marchio fa parte di Huntsman Building Solutions, realtà internazionale del gruppo Huntsman specializzata nelle soluzioni per l’isolamento degli edifici.</p>
+            <p>Questo passaggio riunisce competenze e risorse dedicate allo sviluppo di sistemi isolanti, con attenzione all’efficienza energetica e alla sostenibilità. Fastisol porta questa tecnologia sul campo con oltre 10 anni di esperienza nell’applicazione a spruzzo.</p>
+            <h3>Efficienza energetica e attenzione all’ambiente</h3>
+            <p>Un isolamento correttamente progettato può limitare le dispersioni termiche, contribuire a temperature più uniformi e ridurre il fabbisogno di energia per riscaldamento e raffrescamento. È in questo contributo al funzionamento dell’edificio che valutiamo il ruolo dell’isolamento nella transizione energetica.</p>
+            <p>Alcune soluzioni Icynene utilizzano acqua come agente espandente: un approccio che rientra nella ricerca di sistemi con un minore impatto ambientale. Questa caratteristica va riferita al prodotto scelto, senza estenderla indistintamente a tutte le schiume o considerarla da sola una garanzia di sostenibilità.</p>
+            <Link className="technology-inline-link" to="/soluzioni#capannoni-e-spazi-commerciali">Le applicazioni negli edifici industriali e commerciali <Icon name="arrow" size={18} /></Link>
+          </div>
+        </div>
+      </section>
+
       <section className="section cell-comparison" id="celle-aperte-chiuse">
         <div className="container">
           <div className="technology-section-heading">
@@ -241,7 +259,7 @@ export function TechnologyPage() {
                 <li><Icon name="check" size={18} /> Leggera, morbida e flessibile</li>
                 <li><Icon name="check" size={18} /> Bassa resistenza al passaggio del vapore</li>
                 <li><Icon name="check" size={18} /> Adatta soprattutto ad applicazioni interne</li>
-                <li><Icon name="check" size={18} /> Buona capacità di assorbimento sonoro</li>
+                <li><Icon name="check" size={18} /> Si adatta a cavità e geometrie complesse</li>
               </ul>
               <p>Non è uno strato portante e non sostituisce impermeabilizzazioni o riparazioni della copertura.</p>
             </article>
@@ -303,7 +321,7 @@ export function TechnologyPage() {
               <p>Per evitare condensa dentro la struttura bisogna comunque conoscere tutti gli strati del tetto, la loro posizione, le temperature e l’umidità degli ambienti. Anche ventilazione e tenuta della copertura restano fondamentali.</p>
               <p>Se sono già presenti macchie, muffa o gocciolamenti, la causa va individuata prima della posa. Coprire il problema senza una diagnosi può renderlo meno visibile, non risolverlo.</p>
             </div>
-            <Link className="technology-inline-link" to="/soluzioni#soluzione-condensa">Come valutiamo la condensa <Icon name="arrow" size={18} /></Link>
+            <Link className="technology-inline-link" to="/soluzioni#muffa-e-umidita">Come valutiamo condensa e umidità <Icon name="arrow" size={18} /></Link>
           </div>
         </div>
       </section>

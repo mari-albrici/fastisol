@@ -41,8 +41,8 @@ export function CompanyPage() {
 	return (
 		<>
 			<Seo
-				title="Azienda Fastisol"
-				description="Conosci Fastisol: la storia dell’azienda, il percorso professionale di Daniele Gualeni e le esperienze tra Valle Camonica, Repubblica Ceca e Kentucky."
+				title="Fastisol: oltre 10 anni di esperienza nell’isolamento"
+				description="Conosci Fastisol e Daniele Gualeni: oltre 10 anni nell’applicazione di schiume isolanti, dalla valutazione dell’edificio alla posa dei sistemi Icynene."
 				structuredData={companyStructuredData}
 			/>
 
@@ -54,8 +54,8 @@ export function CompanyPage() {
 					</div>
 					<div className="company-hero__aside">
 						<p className="company-hero__intro">
-							Fastisol nasce in Valle Camonica con un obiettivo preciso: occuparsi di isolamento con competenza verticale, seguendo ogni intervento
-							dalla prima valutazione alla posa.
+							Da oltre 10 anni Fastisol si dedica all’isolamento termico in schiuma a spruzzo a cellule aperte per abitazioni e ambienti commerciali e industriali.
+							Dalla Valle Camonica seguiamo ogni intervento, dalla prima valutazione alla posa.
 						</p>
 					</div>
 				</div>
@@ -90,7 +90,11 @@ export function CompanyPage() {
 								Oggi il metodo resta lo stesso: osservare prima di proporre, definire il ciclo sulle condizioni reali e seguire direttamente il
 								lavoro. Il risultato è un servizio completo, con un interlocutore unico dalla valutazione iniziale al controllo dell’applicazione.
 							</p>
+							<p>
+								Utilizziamo sistemi Icynene di Huntsman Building Solutions, realtà internazionale specializzata nello sviluppo e nella produzione di schiume poliuretaniche isolanti.
+							</p>
 						</div>
+						<ButtonLink href="/tecnologia#icynene-huntsman" variant="text" showArrow>Da Icynene a Huntsman Building Solutions</ButtonLink>
 					</div>
 				</div>
 

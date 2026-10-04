@@ -37,7 +37,7 @@ export function TechnologySection() {
             {benefits.map((benefit) => <li key={benefit}><Icon name="check" size={19} /> {benefit}</li>)}
           </ul>
           <p className="technical-note">
-            Spessori, prestazioni e comportamento igrometrico vanno definiti sul prodotto e sulla stratigrafia reali. Per questo non proponiamo valori standard senza una verifica tecnica.
+            Utilizziamo sistemi Icynene di Huntsman Building Solutions. Spessore e compatibilità della schiuma a cellule aperte vengono valutati sulla struttura e sulla stratigrafia esistenti.
           </p>
           <ButtonLink href="/tecnologia" variant="secondary" showArrow>Come funziona la tecnologia</ButtonLink>
         </div>

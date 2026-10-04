@@ -51,7 +51,7 @@ export const technologyFaqs = [
   },
   {
     question: 'Quanto spessore serve per isolare un tetto o un sottotetto?',
-    answer: 'Non esiste uno spessore valido per tutti. Si definisce considerando zona climatica, struttura esistente, superficie di posa, obiettivo energetico e prestazione dichiarata del prodotto. Fastisol lo indica dopo la valutazione del caso.',
+    answer: 'Non esiste uno spessore valido per tutti: contano struttura, destinazione d’uso, stratigrafia e obiettivi di isolamento. Come riferimento operativo, sotto i 12 cm questo sistema può non essere tecnicamente o economicamente conveniente. Fastisol verifica lo spazio disponibile e definisce lo spessore dopo la valutazione del caso.',
   },
   {
     question: 'La schiuma a spruzzo si può applicare da soli?',

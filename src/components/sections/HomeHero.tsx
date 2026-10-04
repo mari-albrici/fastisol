@@ -18,10 +18,10 @@ export function HomeHero() {
         <p className="hero__eyebrow">Specialisti in isolamento termico a spruzzo</p>
         <h1 id="hero-title">Il comfort di casa comincia dal tetto.</h1>
         <p className="hero__lead">
-          Isoliamo tetti e sottotetti creando uno strato continuo anche negli spazi più difficili da raggiungere. Spesso senza dover aprire la copertura.
+          Da oltre 10 anni isoliamo tetti, sottotetti e ambienti industriali con schiuma a spruzzo. Uno strato continuo che segue la struttura, con interventi dall’interno quando possibile.
         </p>
         <div className="hero__actions">
-          <ButtonLink href="/preventivo" showArrow>Richiedi un preventivo</ButtonLink>
+          <ButtonLink href="/preventivo" showArrow>Richiedi una valutazione</ButtonLink>
           <ButtonLink href="/soluzioni" variant="light">Scopri le soluzioni</ButtonLink>
         </div>
         <div className="hero__contact">
