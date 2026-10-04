@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import {
   indexablePublicRoutes,
+  maintenancePublicRoutes,
   prerenderPublicRoutes,
   renderPublicRoute,
 } from '../.prerender-server/entry-server.js'
@@ -9,6 +10,22 @@ import {
 const projectRoot = resolve(import.meta.dirname, '..')
 const distDirectory = resolve(projectRoot, 'dist')
 const template = await readFile(resolve(distDirectory, 'index.html'), 'utf8')
+
+if (maintenancePublicRoutes.length > 0) {
+  const htaccessPath = resolve(distDirectory, '.htaccess')
+  const htaccess = await readFile(htaccessPath, 'utf8')
+  const indexRule = '  RewriteRule ^index\\.html$ - [L]'
+  const maintenanceRules = [
+    '  # Redirect stale public pages to the maintenance homepage.',
+    '  RewriteCond %{REQUEST_URI} !^/gestionale(?:/|$)',
+    '  RewriteCond %{REQUEST_URI} !^/\\.well-known(?:/|$)',
+    '  RewriteCond %{REQUEST_URI} !\\.(?:css|js|mjs|map|svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|eot|xml|txt|pdf|zip|wasm|json|xsd)$ [NC]',
+    '  RewriteRule . / [R=302,L]',
+  ].join('\n')
+
+  if (!htaccess.includes(indexRule)) throw new Error('Regola index.html mancante in public/.htaccess.')
+  await writeFile(htaccessPath, htaccess.replace(indexRule, `${indexRule}\n\n${maintenanceRules}`), 'utf8')
+}
 
 const managementShell = template
   .replace(/<title>[\s\S]*?<\/title>/, '<title>Gestionale Fastisol</title>')

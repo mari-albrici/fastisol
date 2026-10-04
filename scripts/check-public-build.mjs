@@ -57,6 +57,12 @@ const expectedRouteCount = maintenancePublicRoutes.length > 0 ? 1 : 9
 if (expectedRoutes.length !== expectedRouteCount) {
   fail(`Attese ${expectedRouteCount} pagine pubbliche in modalità ${maintenancePublicRoutes.length > 0 ? 'manutenzione' : 'standard'}, configurate ${expectedRoutes.length}.`)
 }
+if (maintenancePublicRoutes.length > 0) {
+  const htaccess = await readFile(resolve(distDirectory, '.htaccess'), 'utf8')
+  if (!htaccess.includes('RewriteRule . / [R=302,L]')) {
+    fail('Modalità manutenzione: regola di reindirizzamento delle vecchie pagine assente.')
+  }
+}
 if (new Set(expectedRoutes).size !== expectedRoutes.length) fail('La configurazione contiene route pubbliche duplicate.')
 
 const pageBodies = new Map()
