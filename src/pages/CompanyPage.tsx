@@ -70,7 +70,6 @@ export function CompanyPage() {
 							width="1400"
 							height="1050"
 						/>
-						<figcaption>Fotografia provvisoria — da sostituire con un’immagine reale Fastisol.</figcaption>
 					</figure>
 
 					<div className="company-story__content">
@@ -139,7 +138,6 @@ export function CompanyPage() {
 							height="1125"
 							loading="lazy"
 						/>
-						<figcaption>Ritratto provvisorio — non raffigura Daniele e deve essere sostituito.</figcaption>
 					</figure>
 				</div>
 			</section>

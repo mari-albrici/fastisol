@@ -217,7 +217,6 @@ export function SolutionsPage() {
               <article key={scenario.title}>
                 <figure>
                   <img src={scenario.image} alt={scenario.imageAlt} width="1200" height="900" loading="lazy" />
-                  <figcaption>Immagine provvisoria generata a scopo illustrativo.</figcaption>
                 </figure>
                 <div className="solution-example__content">
                   <p className="solution-example__category">{scenario.category}</p>
@@ -259,7 +258,7 @@ export function SolutionsPage() {
             <h2>La distanza si valuta insieme al tipo di intervento.</h2>
           </div>
           <div>
-            <p>Fastisol opera principalmente nel Nord Italia e valuta lavori nelle altre regioni in base a superficie, complessità e organizzazione del cantiere. Inviare località, foto e misure permette di capire subito se il progetto è compatibile.</p>
+            <p>Fastisol opera in tutta Italia. La fattibilità di ogni intervento viene valutata in base a superficie, complessità e organizzazione del cantiere. Inviare località, foto e misure permette di capire subito se il progetto è compatibile.</p>
             <ButtonLink href="/contatti" variant="secondary" showArrow>Invia le informazioni</ButtonLink>
           </div>
         </div>

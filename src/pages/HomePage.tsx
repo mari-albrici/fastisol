@@ -29,7 +29,7 @@ const homeStructuredData = [
       addressRegion: company.address.province,
       addressCountry: 'IT',
     },
-    areaServed: 'Nord Italia',
+    areaServed: 'Italia',
   },
   {
     '@context': 'https://schema.org',

@@ -27,7 +27,7 @@ export const company = {
     country: 'Italia',
   },
   serviceArea:
-    'Operiamo principalmente nel Nord Italia; gli interventi in altre aree vengono valutati in base al progetto.',
+    'Operiamo in tutta Italia; la fattibilità di ogni intervento viene valutata in base al progetto.',
   vatNumber: '03608650986',
   websiteUrl: import.meta.env.VITE_SITE_URL || 'https://fastisol.it',
   socialLinks: [] as Array<{ label: string; href: string }>,

@@ -13,11 +13,6 @@ export interface JourneyLocation {
 
 export const companyMilestones = [
   {
-    year: '1991',
-    title: 'Esperienza nel settore edile',
-    text: 'Il percorso professionale nasce tra progettazione, direzione lavori e conoscenza diretta degli edifici.',
-  },
-  {
     year: '2014',
     title: 'Nasce Fastisol',
     text: 'La formazione svolta all’estero prende forma in un’attività dedicata esclusivamente all’isolamento specialistico.',

@@ -27,7 +27,7 @@ const quoteStructuredData = [
       url: company.websiteUrl,
       telephone: company.phoneDisplay,
     },
-    areaServed: 'Nord Italia',
+    areaServed: 'Italia',
   },
   {
     '@context': 'https://schema.org',

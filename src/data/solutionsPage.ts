@@ -139,6 +139,6 @@ export const solutionsFaqs = [
   },
   {
     question: 'Fastisol esegue interventi in tutta Italia?',
-    answer: 'Fastisol opera principalmente nel Nord Italia e valuta lavori nelle altre regioni in base a dimensione, tipologia e organizzazione del progetto. La fattibilità geografica viene confermata durante il primo contatto.',
+    answer: 'Sì, Fastisol opera in tutta Italia. La fattibilità di ogni intervento viene confermata durante il primo contatto, in base a dimensione, tipologia e organizzazione del progetto.',
   },
 ] as const
