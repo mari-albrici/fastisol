@@ -93,10 +93,12 @@ export function PrivacyPolicyPage() {
 
             <h3>Dati raccolti con strumenti di misurazione e marketing</h3>
             <p>
-              Solo dopo una scelta positiva nel pannello cookie, il sito può raccogliere informazioni
-              sull’utilizzo delle pagine e sulle interazioni con i canali di contatto mediante Google
-              Ads, Google Analytics, Google Tag Manager e/o Meta Pixel, se effettivamente configurati.
-              Per dettagli su categorie, fornitori e durata degli strumenti utilizzati si rimanda alla{' '}
+              Il tag Google Ads è caricato con Consent Mode in stato negato e, prima del consenso
+              marketing, può inviare a Google segnali senza cookie. Solo dopo una scelta positiva nel
+              pannello cookie, il sito può utilizzare strumenti di misurazione e marketing secondo
+              le categorie autorizzate: Google Ads per il marketing, Google Analytics per gli
+              analitici e Google Tag Manager e/o Meta Pixel se configurati. Per dettagli su categorie,
+              fornitori e durata degli strumenti utilizzati si rimanda alla{' '}
               <Link to="/cookie-policy">Cookie Policy</Link>.
             </p>
           </section>

@@ -29,6 +29,8 @@ if (maintenancePublicRoutes.length > 0) {
 
 const managementShell = template
   .replace(/<title>[\s\S]*?<\/title>/, '<title>Gestionale Fastisol</title>')
+  .replace(/    <script async id="fastisol-google-tag"[\s\S]*?<\/script>\n/, '')
+  .replace(/    <script id="google-ads-consent-defaults">[\s\S]*?<\/script>\n/, '')
   .replace('</head>', '    <meta name="robots" content="noindex, nofollow, noarchive" />\n  </head>')
 
 await writeFile(resolve(distDirectory, 'gestionale-shell.html'), managementShell, 'utf8')

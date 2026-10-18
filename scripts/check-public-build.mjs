@@ -71,6 +71,8 @@ for (const [pathname, body] of pageBodies) {
   const title = getAttributeTag(body, /<title>([^<]+)<\/title>/)
   const description = getAttributeTag(body, /<meta name="description" content="([^"]+)"/)
   const robots = getAttributeTag(body, /<meta name="robots" content="([^"]+)"/)
+  const googleConsentPosition = body.indexOf("gtag('consent', 'default'")
+  const googleTagPosition = body.indexOf('id="fastisol-google-tag"')
 
   if (countMatches(body, /<title>/g) !== 1 || !title) fail(`${pathname}: title mancante o duplicato.`)
   if (countMatches(body, /<meta name="description"/g) !== 1 || !description) fail(`${pathname}: meta description mancante o duplicata.`)
@@ -78,6 +80,9 @@ for (const [pathname, body] of pageBodies) {
   if (countMatches(body, /<meta name="robots"/g) !== 1 || !robots) fail(`${pathname}: meta robots mancante o duplicato.`)
   if (countMatches(body, /<h1\b/g) !== 1) fail(`${pathname}: deve essere presente esattamente un H1.`)
   if (countMatches(body, /id="page-structured-data"/g) !== 1) fail(`${pathname}: dati strutturati mancanti o duplicati.`)
+  if (countMatches(body, /id="fastisol-google-tag"/g) !== 1 || googleConsentPosition < 0 || googleTagPosition < 0 || googleConsentPosition > googleTagPosition) {
+    fail(`${pathname}: tag Google o consenso predefinito mancante o duplicato.`)
+  }
   if (body.includes('Sezione predisposta')) fail(`${pathname}: rilevato testo da pagina segnaposto.`)
 
   if (indexablePublicRoutes.includes(pathname) && !robots.startsWith('index, follow')) {
@@ -155,6 +160,9 @@ else {
   const managementShell = await readFile(managementShellPath, 'utf8')
   if (!managementShell.includes('<div id="root"></div>')) fail('La shell del gestionale contiene HTML prerenderizzato inatteso.')
   if (!managementShell.includes('noindex, nofollow, noarchive')) fail('La shell del gestionale non contiene noindex.')
+  if (managementShell.includes('fastisol-google-tag') || managementShell.includes('AW-18520326606')) {
+    fail('La shell del gestionale non deve includere il tag Google Ads.')
+  }
 }
 
 const sitemapPath = resolve(distDirectory, 'sitemap.xml')

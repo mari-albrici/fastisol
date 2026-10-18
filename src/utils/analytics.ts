@@ -20,8 +20,8 @@ const CONSENT_EVENT_NAME = 'fastisol:consent-change'
 const OPEN_SETTINGS_EVENT_NAME = 'fastisol:open-cookie-settings'
 
 let activeConsent: ConsentPreferences = { analytics: false, marketing: false }
-let googleTagInitialized = false
-const initializedGoogleIds = new Set<string>()
+let googleTagInitialized = true
+const initializedGoogleIds = new Set<string>([analyticsConfig.googleAdsId])
 
 declare global {
   interface Window {

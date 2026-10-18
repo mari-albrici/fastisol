@@ -98,13 +98,15 @@ export function CookiePolicyPage() {
               <>
                 <h3>Google Ads, Google Analytics e Google Tag Manager</h3>
                 <p>
-                  Solo dopo il consenso “Marketing”, il tag Google Ads può utilizzare identificatori
-                  online per misurare e attribuire le campagne pubblicitarie. Con il consenso
-                  “Analitici”, Google Analytics, se configurato, può misurare visite, sessioni,
-                  pagine consultate, area geografica approssimativa, dispositivo e interazioni con
-                  telefono, email, WhatsApp e moduli. Google Tag Manager, se configurato, distribuisce
-                  i tag secondo le preferenze espresse. Non vengono inviati intenzionalmente a Google
-                  nome, email, telefono o testo compilato nei moduli.
+                  Il tag Google Ads viene caricato con Consent Mode in stato negato. Prima del
+                  consenso “Marketing”, Google può ricevere segnali senza cookie; dopo il consenso
+                  può utilizzare identificatori online per misurare e attribuire le campagne
+                  pubblicitarie. Con il consenso “Analitici”, Google Analytics, se configurato, può
+                  misurare visite, sessioni, pagine consultate, area geografica approssimativa,
+                  dispositivo e interazioni con telefono, email, WhatsApp e moduli. Google Tag
+                  Manager, se configurato, distribuisce i tag secondo le preferenze espresse. Non
+                  vengono inviati intenzionalmente a Google nome, email, telefono o testo compilato
+                  nei moduli.
                 </p>
                 <div className="legal-table-wrap">
                   <table>
