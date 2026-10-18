@@ -189,7 +189,7 @@ export function TechnologyPage() {
               L’attrezzatura miscela due componenti e li porta alla pistola di applicazione. A contatto con il supporto la schiuma si espande rapidamente, aderisce e riempie lo spazio disponibile. Il risultato è uno strato senza i tagli e gli accostamenti tipici degli isolanti prefabbricati.
             </p>
             <p>
-              Durante l’espansione si formano milioni di piccole celle che non sono completamente chiuse tra loro: da qui il nome “a cellule aperte”. La schiuma poliuretanica finita è leggera e flessibile e raggiunge cavità, interstizi e punti difficili da isolare. Questa struttura consente il passaggio del vapore, da considerare nella progettazione della stratigrafia.
+              Durante l’espansione si formano milioni di piccole celle che non sono completamente chiuse tra loro: da qui il nome “a cellule aperte”. La schiuma poliuretanica finita è leggera e flessibile e raggiunge cavità, interstizi e punti difficili da isolare. Questa struttura consente il passaggio del vapore, e una lunga e stabile durata nel tempo, da considerare nella progettazione della stratigrafia.
             </p>
           </div>
         </div>
@@ -234,7 +234,7 @@ export function TechnologyPage() {
             <p>Questo passaggio riunisce competenze e risorse dedicate allo sviluppo di sistemi isolanti, con attenzione all’efficienza energetica e alla sostenibilità. Fastisol porta questa tecnologia sul campo con oltre 10 anni di esperienza nell’applicazione a spruzzo.</p>
             <h3>Efficienza energetica e attenzione all’ambiente</h3>
             <p>Un isolamento correttamente progettato può limitare le dispersioni termiche, contribuire a temperature più uniformi e ridurre il fabbisogno di energia per riscaldamento e raffrescamento. È in questo contributo al funzionamento dell’edificio che valutiamo il ruolo dell’isolamento nella transizione energetica.</p>
-            <p>Alcune soluzioni Icynene utilizzano acqua come agente espandente: un approccio che rientra nella ricerca di sistemi con un minore impatto ambientale. Questa caratteristica va riferita al prodotto scelto, senza estenderla indistintamente a tutte le schiume o considerarla da sola una garanzia di sostenibilità.</p>
+            <p>Le soluzioni isolanti Icynene a base d’acqua sono progettate per garantire sicurezza e comfort negli ambienti abitativi. Grazie all’utilizzo dell’acqua come agente espandente, non impiegano gas espandenti tradizionali e, una volta correttamente applicate e indurite, sono formulate per ridurre le emissioni negli ambienti interni. Inoltre, alcune formulazioni integrano materie prime provenienti dal riciclo, contribuendo a un utilizzo più responsabile delle risorse e a un minore impatto ambientale.</p>
             <Link className="technology-inline-link" to="/soluzioni#capannoni-e-spazi-commerciali">Le applicazioni negli edifici industriali e commerciali <Icon name="arrow" size={18} /></Link>
           </div>
         </div>
@@ -286,12 +286,8 @@ export function TechnologyPage() {
             <p className="eyebrow">I numeri, con il loro significato</p>
             <h2>Dati tecnici della schiuma ICYNENE H2Foam Lite.</h2>
             <p>
-              I valori qui riportati provengono dalla Dichiarazione di Prestazione H2Foam Lite V6 n. 0011/09-2020, documento collegato dal sito Fastisol originale.
+              I valori qui riportati provengono dalla Dichiarazione di Prestazione H2Foam Lite V6 n. 0011/09-2020.
             </p>
-            <div className="technology-data__notice">
-              <Icon name="document" size={23} />
-              <p><strong>Il nome commerciale non basta.</strong> Versioni e formulazioni possono avere valori differenti. Nel preventivo va identificato il prodotto effettivamente previsto e va allegata la relativa documentazione aggiornata.</p>
-            </div>
           </div>
 
           <dl className="technology-specs">
@@ -371,7 +367,6 @@ export function TechnologyPage() {
           <div>
             <p className="eyebrow">Fonti e documentazione</p>
             <h2>Le prestazioni si verificano sui documenti, non sugli slogan.</h2>
-            <p>Queste sono le fonti principali utilizzate per redigere la pagina. Le schede applicabili al singolo lavoro devono essere confermate in fase di offerta.</p>
           </div>
           <ul>
             {technologySources.map((source) => (

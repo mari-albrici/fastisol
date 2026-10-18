@@ -20,7 +20,7 @@ const homeStructuredData = [
     telephone: company.phoneDisplay,
     description: company.description,
     logo: new URL(company.logos.onLight.src, company.websiteUrl).toString(),
-    image: new URL('/images/fastisol-isolamento-tetto-legno-hero.webp', company.websiteUrl).toString(),
+    image: new URL('/images/fastisol-home-hero-schiuma.webp', company.websiteUrl).toString(),
     address: {
       '@type': 'PostalAddress',
       streetAddress: company.address.street,
@@ -48,6 +48,10 @@ export function HomePage() {
       <Seo
         title="Fastisol | Isolamento in schiuma a spruzzo"
         description="Da oltre 10 anni isoliamo sottotetti, coperture e ambienti industriali con sistemi Icynene di Huntsman Building Solutions. Richiedi una valutazione."
+        image="/images/fastisol-home-hero-schiuma.webp"
+        imageAlt="Schiuma isolante a spruzzo sul pavimento di un sottotetto con struttura metallica"
+        imageWidth={1200}
+        imageHeight={453}
         structuredData={homeStructuredData}
       />
       <HomeHero />

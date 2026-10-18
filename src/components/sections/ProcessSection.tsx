@@ -13,13 +13,13 @@ const steps = [
   },
   {
     number: '03',
-    title: 'Preparazione del cantiere',
-    text: 'Proteggiamo le aree interessate e prepariamo il supporto per l’applicazione prevista.',
+    title: 'Applicazione rapida e pulita',
+    text: 'I nostri interventi sono rapidi, proteggendo le aree circostanti e minimizzando i disagi.',
   },
   {
     number: '04',
-    title: 'Applicazione e controllo',
-    text: 'Gli applicatori eseguono il ciclo concordato e verificano la continuità del lavoro.',
+    title: 'Garanzia e durata nel tempo',
+    text: 'Icynene/Huntsman garantisce la continuità e la durata nel tempo dello strato isolante.',
   },
 ]
 

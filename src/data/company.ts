@@ -20,7 +20,7 @@ export const company = {
   whatsappHref: 'https://wa.me/393403213998',
   email: 'info@fastisol.it',
   address: {
-    street: 'Via Manifattura 4',
+    street: 'Via San Martino, 22',
     postalCode: '25047',
     city: 'Darfo Boario Terme',
     province: 'BS',

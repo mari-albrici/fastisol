@@ -55,7 +55,7 @@ export function CompanyPage() {
 					<div className="company-hero__aside">
 						<p className="company-hero__intro">
 							Da oltre 10 anni Fastisol si dedica all’isolamento termico in schiuma a spruzzo a cellule aperte per abitazioni e ambienti commerciali e industriali.
-							Dalla Valle Camonica seguiamo ogni intervento, dalla prima valutazione alla posa.
+							Seguiamo ogni intervento, dalla prima valutazione alla posa.
 						</p>
 					</div>
 				</div>
@@ -65,10 +65,11 @@ export function CompanyPage() {
 				<div className="container company-story__grid">
 					<figure className="company-photo company-photo--landscape">
 						<img
-							src="/images/fastisol-azienda-storia-placeholder.webp"
-							alt="Immagine provvisoria di tecnici che preparano l’attrezzatura per un intervento di isolamento"
-							width="1400"
-							height="1050"
+							src="/images/fastisol-cantiere-sottotetto.webp"
+							alt="Tecnico al lavoro nel sottotetto durante la posa della schiuma isolante"
+							width="1920"
+							height="1440"
+							loading="lazy"
 						/>
 					</figure>
 
@@ -116,7 +117,7 @@ export function CompanyPage() {
 						<h2>La tecnica si impara studiando. Il mestiere, lavorando sul campo.</h2>
 						<div className="company-prose">
 							<p>
-								Daniele arriva all’isolamento dopo anni trascorsi nel settore edile, tra progettazione e direzione lavori. Conoscere come è costruito
+								Daniele arriva all’isolamento dopo anni trascorsi nel settore edile. Conoscere come è costruito
 								un tetto gli permette di guardare oltre il materiale e capire prima di tutto dove, come e perché intervenire.
 							</p>
 							<p>
@@ -134,15 +135,6 @@ export function CompanyPage() {
 						</ButtonLink>
 					</div>
 
-					<figure className="company-photo company-photo--portrait">
-						<img
-							src="/images/fastisol-daniele-placeholder.webp"
-							alt="Ritratto provvisorio per la sezione dedicata a Daniele Gualeni"
-							width="900"
-							height="1125"
-							loading="lazy"
-						/>
-					</figure>
 				</div>
 			</section>
 

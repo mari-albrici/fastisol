@@ -22,7 +22,7 @@ export function TrustSection() {
 					<SectionHeading
 						eyebrow="Competenza verificabile"
 						title="Tecnica, applicazione e contatto diretto."
-						description="Parli con chi conosce il sistema e segue il lavoro, dalla prima valutazione alla posa. Documentazione e dati prestazionali troveranno spazio nella sezione tecnica, sempre collegati alle fonti ufficiali."
+						description="Parli con chi conosce il sistema e segue il lavoro, dalla prima valutazione alla posa."
 					/>
 					<div className="trust-points">
 						<div>
@@ -53,9 +53,6 @@ export function TrustSection() {
 							</figcaption>
 						</figure>
 					))}
-					<p className="testimonial-note">
-						Testimonianze riprese dal sito Fastisol precedente, da riconfermare in versione integrale prima della pubblicazione.
-					</p>
 				</div>
 			</div>
 		</section>

@@ -39,7 +39,7 @@ export function Seo({
   const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '')
   const canonicalUrl = new URL(normalizedPath, company.websiteUrl).toString()
   const fullTitle = title.includes('Fastisol') ? title : `${title} | Fastisol`
-  const shareImage = new URL(image ?? '/images/fastisol-isolamento-tetto-legno-hero.webp', company.websiteUrl).toString()
+  const shareImage = new URL(image ?? '/images/fastisol-cantiere-sottotetto-hero.webp', company.websiteUrl).toString()
   const snapshot: SeoSnapshot = {
     title: fullTitle,
     description,

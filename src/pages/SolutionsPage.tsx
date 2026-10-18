@@ -97,7 +97,7 @@ export function SolutionsPage() {
             <p className="eyebrow">Soluzioni di isolamento termico</p>
             <h1>Isolamento di sottotetti e coperture: dove intervenire.</h1>
             <p className="solutions-hero__lead">
-              Tetto, sottotetto e soletta non sono la stessa cosa. Partiamo dall’uso degli spazi e dalla struttura per capire dove intervenire, con quale ciclo e con quale finitura.
+              Tetto, sottotetto e soletta non sono la stessa cosa. Partiamo dall’uso degli spazi e dalla struttura per capire dove intervenire.
             </p>
             <div className="solutions-hero__actions">
               <ButtonLink href="/contatti" showArrow>Descrivi il tuo caso</ButtonLink>
@@ -172,9 +172,15 @@ export function SolutionsPage() {
 
           <div className="roof-or-attic__grid">
             <article>
-              <div className="roof-or-attic__diagram roof-or-attic__diagram--attic" aria-hidden="true">
-                <i className="roof-or-attic__roof" /><i className="roof-or-attic__floor" /><i className="roof-or-attic__insulation" />
-              </div>
+              <figure className="roof-or-attic__photo">
+                <img
+                  src="/images/fastisol-isolamento-sottotetto-passerella.webp"
+                  alt="Schiuma isolante posata sulla soletta di un sottotetto non abitabile"
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+                />
+              </figure>
               <p className="roof-or-attic__label">Volume non utilizzato</p>
               <h3>Isolare la soletta del sottotetto</h3>
               <p>Quando il sottotetto non è abitabile, la coibentazione della soletta permette di intervenire senza modificare gli ambienti abitati sottostanti. Il vano resta fuori dalla zona riscaldata. Se necessario, si può invece valutare la parte interna della copertura, prevedendo le finiture successive, come un controsoffitto.</p>
@@ -186,9 +192,15 @@ export function SolutionsPage() {
             </article>
 
             <article>
-              <div className="roof-or-attic__diagram roof-or-attic__diagram--roof" aria-hidden="true">
-                <i className="roof-or-attic__roof" /><i className="roof-or-attic__floor" /><i className="roof-or-attic__insulation" />
-              </div>
+              <figure className="roof-or-attic__photo">
+                <img
+                  src="/images/fastisol-posa-schiuma-sottotetto.webp"
+                  alt="Schiuma isolante applicata tra i travetti della falda di un tetto in legno"
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                />
+              </figure>
               <p className="roof-or-attic__label">Volume abitato o utilizzato</p>
               <h3>Isolare il tetto della mansarda</h3>
               <p>Una mansarda può essere abitabile ma poco confortevole, con caldo in estate e dispersioni termiche in inverno. Intervenire dall’interno della copertura consente di includerla nel volume da proteggere, completando il lavoro con una finitura adatta, ad esempio una controsoffittatura.</p>
@@ -271,14 +283,17 @@ export function SolutionsPage() {
               <p className="eyebrow">Esempi di applicazione</p>
               <h2>Tre scenari per capire dove può cambiare l’intervento.</h2>
             </div>
-            <p>Gli esempi e le fotografie sono temporanei e illustrativi: aiutano a riconoscere le situazioni, ma non documentano cantieri realmente eseguiti da Fastisol.</p>
+            <p>Le fotografie mostrano interventi reali: ogni edificio richiede comunque una valutazione specifica della struttura e dell’uso degli spazi.</p>
           </div>
 
           <div className="solution-examples__grid">
             {exampleScenarios.map((scenario) => (
               <article key={scenario.title}>
-                <figure>
+                <figure className={scenario.additionalImages.length ? 'solution-example-gallery' : undefined}>
                   <img src={scenario.image} alt={scenario.imageAlt} width="1200" height="900" loading="lazy" />
+                  {scenario.additionalImages.map((image) => (
+                    <img key={image.image} src={image.image} alt={image.imageAlt} width="1080" height="1440" loading="lazy" />
+                  ))}
                 </figure>
                 <div className="solution-example__content">
                   <p className="solution-example__category">{scenario.category}</p>

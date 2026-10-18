@@ -345,7 +345,7 @@
 .management-login__heading h1 { margin-top: .5rem; color: #173342; font-size: clamp(2rem, 5vw, 2.8rem); }
 .management-login__heading p { margin-top: .65rem; color: #6a7a83; }
 .management-login__back { margin-top: 2rem; color: #617681; font-size: .82rem; font-weight: 600; }
-.management-login__visual { display: none; position: relative; min-height: 100vh; align-items: flex-end; padding: 5rem; overflow: hidden; color: #fff; background: linear-gradient(145deg, rgba(5,54,84,.85), rgba(16,107,167,.7)), url('/images/fastisol-isolamento-tetto-legno-hero.webp') center/cover; }
+.management-login__visual { display: none; position: relative; min-height: 100vh; align-items: flex-end; padding: 5rem; overflow: hidden; color: #fff; background: linear-gradient(145deg, rgba(5,54,84,.85), rgba(16,107,167,.7)), url('/images/fastisol-cantiere-sottotetto-hero.webp') center/cover; }
 .management-login__visual::before { content: ''; position: absolute; width: 420px; height: 420px; top: -110px; right: -80px; border: 70px solid rgba(142,185,21,.18); border-radius: 50%; }
 .management-login__visual > div { position: relative; }
 .management-login__visual span { color: var(--color-secondary); font-size: .74rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }

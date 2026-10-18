@@ -336,52 +336,17 @@
   border: 1px solid var(--color-border);
 }
 
-.roof-or-attic__diagram {
-  position: relative;
-  min-height: 15rem;
+.roof-or-attic__photo {
   margin-bottom: var(--space-xl);
   overflow: hidden;
-  background: linear-gradient(#e7f3f8 0 42%, #f4f0e8 42% 100%);
+  aspect-ratio: 2.1 / 1;
 }
 
-.roof-or-attic__roof {
-  position: absolute;
-  top: 3.2rem;
-  left: 50%;
-  width: 13rem;
-  height: 7rem;
-  border-top: 0.8rem solid #805033;
-  border-right: 0.8rem solid #805033;
-  transform: translateX(-50%) rotate(-45deg) skew(6deg, 6deg);
-}
-
-.roof-or-attic__floor {
-  position: absolute;
-  right: 12%;
-  bottom: 3.4rem;
-  left: 12%;
-  height: 0.65rem;
-  background: #777f83;
-}
-
-.roof-or-attic__insulation {
-  position: absolute;
-  right: 12%;
-  left: 12%;
-  height: 1.35rem;
-  border: 1px solid rgb(130 105 53 / 22%);
-  background: #f1e2b9;
-}
-
-.roof-or-attic__diagram--attic .roof-or-attic__insulation {
-  bottom: 4.05rem;
-}
-
-.roof-or-attic__diagram--roof .roof-or-attic__insulation {
-  top: 5.7rem;
-  left: 50%;
-  width: 12rem;
-  transform: translateX(-50%) rotate(-45deg) skew(6deg, 6deg);
+.roof-or-attic__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .roof-or-attic__label,
@@ -448,8 +413,40 @@
   margin: 0;
 }
 
+.solution-examples figure.solution-example-gallery {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  padding: 0.4rem;
+  background: var(--color-surface-warm);
+}
+
+.solution-examples figure.solution-example-gallery img {
+  position: absolute;
+  bottom: 0.4rem;
+  left: 0.4rem;
+  width: calc(50% - 0.6rem);
+  height: calc(33.333% - 0.5rem);
+  min-height: 0;
+}
+
+.solution-examples figure.solution-example-gallery img:first-child {
+  top: 0.4rem;
+  right: 0.4rem;
+  bottom: auto;
+  width: calc(100% - 0.8rem);
+  height: calc(66.667% - 0.533rem);
+}
+
+.solution-examples figure.solution-example-gallery img:last-child {
+  right: 0.4rem;
+  left: auto;
+}
+
 .solution-examples figure img {
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
@@ -717,7 +714,4 @@
     min-height: 29rem;
   }
 
-  .roof-or-attic__diagram {
-    min-height: 13rem;
-  }
 }

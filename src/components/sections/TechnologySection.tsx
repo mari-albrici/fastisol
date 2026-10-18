@@ -5,7 +5,7 @@ import { SectionHeading } from '../ui/SectionHeading'
 
 const benefits = [
   'Segue travi, murature e geometrie irregolari',
-  'Forma uno strato continuo sul supporto preparato',
+  'Forma uno strato continuo',
   'Riduce giunti e tagli tipici dei pannelli',
   'Permette di intervenire dall’interno in molte configurazioni',
 ]

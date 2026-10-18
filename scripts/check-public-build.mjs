@@ -4,7 +4,6 @@ import {
   consolidatedPublicRoutes,
   indexablePublicRoutes,
   legalPublicRoutes,
-  maintenancePublicRoutes,
   prerenderPublicRoutes,
 } from '../.prerender-server/entry-server.js'
 
@@ -53,16 +52,7 @@ async function walk(directory) {
 }
 
 const expectedRoutes = [...prerenderPublicRoutes]
-const expectedRouteCount = maintenancePublicRoutes.length > 0 ? 1 : 9
-if (expectedRoutes.length !== expectedRouteCount) {
-  fail(`Attese ${expectedRouteCount} pagine pubbliche in modalità ${maintenancePublicRoutes.length > 0 ? 'manutenzione' : 'standard'}, configurate ${expectedRoutes.length}.`)
-}
-if (maintenancePublicRoutes.length > 0) {
-  const htaccess = await readFile(resolve(distDirectory, '.htaccess'), 'utf8')
-  if (!htaccess.includes('RewriteRule . / [R=302,L]')) {
-    fail('Modalità manutenzione: regola di reindirizzamento delle vecchie pagine assente.')
-  }
-}
+if (expectedRoutes.length !== 9) fail(`Attese 9 pagine pubbliche, configurate ${expectedRoutes.length}.`)
 if (new Set(expectedRoutes).size !== expectedRoutes.length) fail('La configurazione contiene route pubbliche duplicate.')
 
 const pageBodies = new Map()
@@ -87,12 +77,9 @@ for (const [pathname, body] of pageBodies) {
   if (countMatches(body, /<link rel="canonical"/g) !== 1) fail(`${pathname}: canonical mancante o duplicata.`)
   if (countMatches(body, /<meta name="robots"/g) !== 1 || !robots) fail(`${pathname}: meta robots mancante o duplicato.`)
   if (countMatches(body, /<h1\b/g) !== 1) fail(`${pathname}: deve essere presente esattamente un H1.`)
-  if (!maintenancePublicRoutes.includes(pathname) && countMatches(body, /id="page-structured-data"/g) !== 1) fail(`${pathname}: dati strutturati mancanti o duplicati.`)
+  if (countMatches(body, /id="page-structured-data"/g) !== 1) fail(`${pathname}: dati strutturati mancanti o duplicati.`)
   if (body.includes('Sezione predisposta')) fail(`${pathname}: rilevato testo da pagina segnaposto.`)
 
-  if (maintenancePublicRoutes.includes(pathname) && !robots.startsWith('noindex, nofollow')) {
-    fail(`${pathname}: pagina in manutenzione non protetta da noindex.`)
-  }
   if (indexablePublicRoutes.includes(pathname) && !robots.startsWith('index, follow')) {
     fail(`${pathname}: pagina pubblica principale non indicizzabile.`)
   }

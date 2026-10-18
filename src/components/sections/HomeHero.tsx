@@ -7,10 +7,10 @@ export function HomeHero() {
     <section className="hero" aria-labelledby="hero-title">
       <img
         className="hero__image"
-        src="/images/fastisol-isolamento-tetto-legno-hero.webp"
-        alt="Tecnico specializzato durante l’applicazione dell’isolamento a spruzzo sotto un tetto in legno"
-        width="1536"
-        height="1024"
+        src="/images/fastisol-home-hero-schiuma.webp"
+        alt="Schiuma isolante a spruzzo sul pavimento di un sottotetto con struttura metallica"
+        width="1200"
+        height="453"
         fetchPriority="high"
       />
       <div className="hero__overlay" />
@@ -31,7 +31,7 @@ export function HomeHero() {
       </div>
       <div className="container hero__facts" aria-label="Punti di forza Fastisol">
         <div><Icon name="spray" /><span>Applicazione professionale</span></div>
-        <div><Icon name="clock" /><span>Interventi rapidi, quando le condizioni lo consentono</span></div>
+        <div><Icon name="clock" /><span>Interventi rapidi</span></div>
         <div><Icon name="shield" /><span>Tecnologia ICYNENE / Huntsman</span></div>
       </div>
     </section>

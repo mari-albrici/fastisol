@@ -5,7 +5,7 @@ import type { Testimonial } from '../types/content'
 export const testimonials: Testimonial[] = [
   {
     name: 'Marco Loregian',
-    projectType: 'Sottotetto calpestabile',
+    projectType: 'Sottotetto semi calpestabile',
     stars: 5,
     quote:
       'Isolamento della soletta del sottotetto con finitura calpestabile: un lavoro descritto come completo e adatto all’uso dello spazio.',

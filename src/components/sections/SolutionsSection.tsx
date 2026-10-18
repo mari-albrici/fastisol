@@ -10,8 +10,8 @@ export function SolutionsSection() {
         <div className="section-title-row">
           <SectionHeading
             eyebrow="Soluzioni su misura"
-            title="Il punto giusto in cui isolare cambia da edificio a edificio."
-            description="Dalla soletta del sottotetto alla falda in legno, fino alle grandi coperture: scegliamo il ciclo in base alla struttura e all’uso degli spazi."
+            title="La superficie giusta da isolare cambia da edificio a edificio."
+            description="Dalla soletta del sottotetto alla falda in legno, fino alle grandi coperture: scegliamo l'applicazione in base all'edificio."
           />
           <ButtonLink href="/soluzioni" variant="text" showArrow>Vedi tutte le soluzioni</ButtonLink>
         </div>

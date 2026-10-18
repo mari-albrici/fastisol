@@ -9,7 +9,7 @@ export interface TechnicalSpecification {
 export const technology = {
   name: 'ICYNENE H2Foam Lite / Huntsman a celle aperte',
   plainLanguageDescription:
-    'Un materiale isolante applicato a spruzzo che si espande sul supporto e crea uno strato continuo, adattandosi alla geometria della superficie.',
+    'Un materiale isolante applicato a spruzzo che si espande e aderisce sulla superficie e crea uno strato continuo, adattandosi ad ogni tipo di forma',
   manufacturer: 'Huntsman Building Solutions',
   specifications: [
     {

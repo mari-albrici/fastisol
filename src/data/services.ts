@@ -16,8 +16,8 @@ export const services: Service[] = [
     title: 'Isolamento del tetto',
     shortTitle: 'Tetti',
     description:
-      'Valutiamo la struttura esistente e applichiamo l’isolante dal lato più adatto, limitando le lavorazioni invasive quando possibile.',
-    problem: 'Il tetto non isola a sufficienza, ma aprire la copertura sarebbe complesso.',
+      "Lavorando dall'interno, possiamo creare uno strato isolante efficace senza intervenire sulla copertura esterna.",
+    problem: 'Il tetto non isola a sufficienza, ma lavorare dall\'esterno sarebbe complesso e costoso.',
     href: '/soluzioni#tetto-o-sottotetto',
     icon: 'layers',
   },
@@ -41,7 +41,7 @@ export const problemStatements = [
   },
   {
     title: 'Calore che si disperde in inverno',
-    text: 'Una superficie superiore poco isolata può ridurre il comfort e aumentare il lavoro dell’impianto.',
+    text: 'Una superficie continua non isolata, come la soletta, può ridurre il comfort e aumentare il lavoro dell’impianto.',
     icon: 'home' as const,
   },
   {
@@ -51,7 +51,7 @@ export const problemStatements = [
   },
   {
     title: 'Condensa sulle coperture',
-    text: 'Prima di intervenire analizziamo supporto, uso dell’edificio e condizioni che generano il problema.',
+    text: 'Prima di definire l’intervento, valutiamo le caratteristiche della copertura, la destinazione d’uso dell’edificio e i fattori che favoriscono la formazione della condensa.',
     icon: 'building' as const,
   },
 ]
