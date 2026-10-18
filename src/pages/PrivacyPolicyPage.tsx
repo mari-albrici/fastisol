@@ -95,8 +95,8 @@ export function PrivacyPolicyPage() {
             <p>
               Solo dopo una scelta positiva nel pannello cookie, il sito può raccogliere informazioni
               sull’utilizzo delle pagine e sulle interazioni con i canali di contatto mediante Google
-              Analytics, Google Tag Manager e/o Meta Pixel, se effettivamente configurati. Per dettagli
-              su categorie, fornitori e durata degli strumenti utilizzati si rimanda alla{' '}
+              Ads, Google Analytics, Google Tag Manager e/o Meta Pixel, se effettivamente configurati.
+              Per dettagli su categorie, fornitori e durata degli strumenti utilizzati si rimanda alla{' '}
               <Link to="/cookie-policy">Cookie Policy</Link>.
             </p>
           </section>

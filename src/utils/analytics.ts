@@ -1,5 +1,6 @@
 export const analyticsConfig = {
   gaMeasurementId: import.meta.env.VITE_GA_MEASUREMENT_ID?.trim() || null,
+  googleAdsId: 'AW-18520326606',
   gtmContainerId: import.meta.env.VITE_GTM_CONTAINER_ID?.trim() || null,
   metaPixelId: import.meta.env.VITE_META_PIXEL_ID?.trim() || null,
 } as const
@@ -19,6 +20,8 @@ const CONSENT_EVENT_NAME = 'fastisol:consent-change'
 const OPEN_SETTINGS_EVENT_NAME = 'fastisol:open-cookie-settings'
 
 let activeConsent: ConsentPreferences = { analytics: false, marketing: false }
+let googleTagInitialized = false
+const initializedGoogleIds = new Set<string>()
 
 declare global {
   interface Window {
@@ -64,16 +67,31 @@ function initializeGoogleTracking(preferences: ConsentPreferences) {
       'fastisol-google-tag-manager',
       `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(analyticsConfig.gtmContainerId)}`,
     )
-    return
   }
 
-  if (preferences.analytics && analyticsConfig.gaMeasurementId) {
-    appendScript(
-      'fastisol-google-analytics',
-      `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsConfig.gaMeasurementId)}`,
-    )
+  const googleIds = [
+    preferences.analytics ? analyticsConfig.gaMeasurementId : null,
+    preferences.marketing ? analyticsConfig.googleAdsId : null,
+  ].filter((id): id is string => Boolean(id))
+
+  if (googleIds.length === 0) return
+
+  appendScript(
+    'fastisol-google-tag',
+    `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleIds[0])}`,
+  )
+  if (!googleTagInitialized) {
     googleCommand('js', new Date())
-    googleCommand('config', analyticsConfig.gaMeasurementId, { send_page_view: false })
+    googleTagInitialized = true
+  }
+  for (const id of googleIds) {
+    if (initializedGoogleIds.has(id)) continue
+    if (id === analyticsConfig.gaMeasurementId) {
+      googleCommand('config', id, { send_page_view: false })
+    } else {
+      googleCommand('config', id)
+    }
+    initializedGoogleIds.add(id)
   }
 }
 

@@ -8,7 +8,7 @@ const cookieStructuredData = {
   name: 'Cookie Policy',
   url: `${company.websiteUrl}/cookie-policy`,
   inLanguage: 'it-IT',
-  dateModified: '2026-08-30',
+  dateModified: '2026-10-18',
   isPartOf: {
     '@type': 'WebSite',
     name: company.name,
@@ -17,7 +17,7 @@ const cookieStructuredData = {
 }
 
 export function CookiePolicyPage() {
-  const googleConfigured = Boolean(analyticsConfig.gaMeasurementId || analyticsConfig.gtmContainerId)
+  const googleConfigured = Boolean(analyticsConfig.googleAdsId || analyticsConfig.gaMeasurementId || analyticsConfig.gtmContainerId)
   const metaConfigured = Boolean(analyticsConfig.metaPixelId)
   const trackingConfigured = isAnalyticsConfigured()
 
@@ -53,7 +53,7 @@ export function CookiePolicyPage() {
         </nav>
 
         <div className="legal-page__content">
-          <p className="legal-page__updated">Ultimo aggiornamento: <time dateTime="2026-08-30">30 agosto 2026</time></p>
+          <p className="legal-page__updated">Ultimo aggiornamento: <time dateTime="2026-10-18">18 ottobre 2026</time></p>
 
           <section id="definizioni">
             <h2>1. Cosa sono cookie e tecnologie simili</h2>
@@ -96,20 +96,23 @@ export function CookiePolicyPage() {
 
             {googleConfigured ? (
               <>
-                <h3>Google Analytics e Google Tag Manager</h3>
+                <h3>Google Ads, Google Analytics e Google Tag Manager</h3>
                 <p>
-                  Con il consenso “Analitici”, Google Analytics può misurare visite, sessioni,
+                  Solo dopo il consenso “Marketing”, il tag Google Ads può utilizzare identificatori
+                  online per misurare e attribuire le campagne pubblicitarie. Con il consenso
+                  “Analitici”, Google Analytics, se configurato, può misurare visite, sessioni,
                   pagine consultate, area geografica approssimativa, dispositivo e interazioni con
-                  telefono, email, WhatsApp e moduli. I dati sono associati a identificatori online
-                  pseudonimi e non vengono inviati intenzionalmente a Google nome, email, telefono o
-                  testo compilato nei moduli.
+                  telefono, email, WhatsApp e moduli. Google Tag Manager, se configurato, distribuisce
+                  i tag secondo le preferenze espresse. Non vengono inviati intenzionalmente a Google
+                  nome, email, telefono o testo compilato nei moduli.
                 </p>
                 <div className="legal-table-wrap">
                   <table>
                     <thead><tr><th>Possibile cookie</th><th>Fornitore e finalità</th><th>Durata predefinita</th></tr></thead>
                     <tbody>
-                      <tr><td><code>_ga</code></td><td>Google Analytics — distingue gli utenti pseudonimi.</td><td>2 anni</td></tr>
-                      <tr><td><code>_ga_&lt;ID&gt;</code></td><td>Google Analytics — mantiene lo stato della sessione.</td><td>2 anni</td></tr>
+                      {analyticsConfig.googleAdsId && <tr><td><code>_gcl_aw</code></td><td>Google Ads — attribuzione delle interazioni pubblicitarie.</td><td>Fino a 90 giorni</td></tr>}
+                      {analyticsConfig.gaMeasurementId && <tr><td><code>_ga</code></td><td>Google Analytics — distingue gli utenti pseudonimi.</td><td>2 anni</td></tr>}
+                      {analyticsConfig.gaMeasurementId && <tr><td><code>_ga_&lt;ID&gt;</code></td><td>Google Analytics — mantiene lo stato della sessione.</td><td>2 anni</td></tr>}
                       {analyticsConfig.gtmContainerId && <tr><td>Variabile in base ai tag</td><td>Google Tag Manager è il contenitore che distribuisce i tag configurati; non stabilisce da solo le finalità. Ogni nuovo tag deve rispettare le preferenze espresse e richiede l’aggiornamento di questa tabella.</td><td>Dipende dal tag pubblicato.</td></tr>}
                     </tbody>
                   </table>
@@ -122,7 +125,7 @@ export function CookiePolicyPage() {
                 </p>
               </>
             ) : (
-              <p><strong>Google Analytics/Tag Manager:</strong> non risultano configurati nella versione corrente del sito.</p>
+              <p><strong>Tag Google:</strong> non risulta configurato nella versione corrente del sito.</p>
             )}
 
             {metaConfigured ? (
